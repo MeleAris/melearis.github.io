@@ -1,2 +1,32 @@
-@import 'tailwindcss';
-@config '../tailwind.config.js';
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #f5f4f0;
+  --ink: #1a1a18;
+  --ink-soft: #6b6b65;
+  --accent: #c8a96e;
+  --accent2: #3d5a47;
+  --white: #ffffff;
+  --card-bg: #eeede9;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+}

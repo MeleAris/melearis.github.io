@@ -1,90 +1,229 @@
-import poseImg from "../../img/pose.png";
-import { HEADER_SCROLL_OFFSET } from "../constants/layout";
-
-function scrollToAbout() {
-  const el = document.querySelector("#about-section");
-  if (!el) return;
-  const top =
-    el.getBoundingClientRect().top + window.scrollY - HEADER_SCROLL_OFFSET;
-  window.scrollTo({ top, behavior: "smooth" });
-}
-
-/** Aligné sur la barre du header (largeur max + gouttières). */
-const shellClass = "mx-auto w-full max-w-[1200px] px-3 sm:px-4 lg:px-5";
-
-/** Légendes des stats : même famille que le sous-titre central. */
-const captionClass = "text-body/85 text-xs font-medium tracking-wide";
+import FadeIn from "./FadeIn";
 
 export default function Hero() {
+  const letters = "Hello".split("");
+
   return (
     <section
-      id="home-section"
-      className="font-sans relative flex min-h-0 w-full flex-1 flex-col bg-tertiary/35 text-body"
-      aria-label="Accueil"
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        padding: "0 3rem",
+        position: "relative",
+        overflow: "hidden",
+      }}
     >
       <div
-        className={`${shellClass} relative z-10 flex h-screen flex-1 flex-col gap-8 pb-16 pt-6 sm:pt-8 lg:flex-row lg:items-stretch lg:gap-10 lg:pb-20 lg:pt-10`}
+        style={{
+          position: "absolute",
+          top: "10%",
+          right: "15%",
+          width: 380,
+          height: 380,
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle, rgba(200,169,110,.18) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          bottom: "10%",
+          left: "5%",
+          width: 260,
+          height: 260,
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle, rgba(61,90,71,.1) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }}
+      />
+
+      <div
+        style={{
+          maxWidth: 1100,
+          margin: "0 auto",
+          width: "100%",
+          paddingTop: "5rem",
+        }}
       >
-        {/* Colonne gauche : stats + titre */}
-        <div className="flex h-full min-h-0 min-w-0 flex-1 flex-col lg:max-w-[48%] lg:pr-2">
-          <div className="flex shrink-0 gap-10 sm:gap-12 lg:gap-14">
-            <div>
-              <p className="text-primary text-[clamp(1.65rem,3.2vw,2.35rem)] font-semibold leading-none tracking-tight">
-                +200
-              </p>
-              <p className={`${captionClass} mt-1.5`}>Project completed</p>
-            </div>
-            <div>
-              <p className="text-primary text-[clamp(1.65rem,3.2vw,2.35rem)] font-semibold leading-none tracking-tight">
-                +50
-              </p>
-              <p className={`${captionClass} mt-1.5`}>Startup raised</p>
+        <FadeIn delay={0.1}>
+          <p
+            style={{
+              fontSize: ".8rem",
+              letterSpacing: ".15em",
+              textTransform: "uppercase",
+              color: "var(--ink-soft)",
+              marginBottom: "1rem",
+            }}
+          >
+            Hi — It&apos;s D&apos;Nova, a Design Virtuoso
+          </p>
+        </FadeIn>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-end",
+            justifyContent: "space-between",
+            gap: "2rem",
+            flexWrap: "wrap",
+          }}
+        >
+          <div>
+            <h1
+              style={{
+                fontFamily: "Playfair Display",
+                fontWeight: 900,
+                fontSize: "clamp(5rem,14vw,11rem)",
+                lineHeight: 0.9,
+                letterSpacing: "-.03em",
+                color: "var(--ink)",
+                marginBottom: "1.5rem",
+              }}
+            >
+              {letters.map((letter, index) => (
+                <span
+                  key={index}
+                  style={{
+                    display: "inline-block",
+                    transition: "transform .3s ease",
+                    animation: `float${index} 3s ease-in-out ${index * 0.15}s infinite alternate`,
+                  }}
+                >
+                  {letter}
+                </span>
+              ))}
+            </h1>
+            <div style={{ display: "flex", gap: "3rem" }}>
+              {[
+                ["*200", "Projects completed"],
+                ["*50", "Startups raised"],
+              ].map(([number, label]) => (
+                <div key={number}>
+                  <p
+                    style={{
+                      fontFamily: "Playfair Display",
+                      fontWeight: 700,
+                      fontSize: "2.2rem",
+                    }}
+                  >
+                    {number}
+                  </p>
+                  <p style={{ fontSize: ".78rem", color: "var(--ink-soft)" }}>
+                    {label}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="flex min-h-0 flex-1 flex-col justify-center py-6 sm:py-8 lg:py-4">
-            <h1
-              className="text-primary m-0 font-bold leading-[0.95] tracking-tight"
-              style={{ fontSize: "clamp(3.25rem, 10vw, 6.5rem)" }}
+          <div
+            style={{
+              width: 220,
+              height: 280,
+              borderRadius: "2rem",
+              overflow: "hidden",
+              background: "linear-gradient(135deg,#d4c8b8,#b8c0b0)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+              position: "relative",
+            }}
+          >
+            <div
+              style={{
+                width: 160,
+                height: 200,
+                borderRadius: "1.5rem",
+                background: "linear-gradient(160deg,#c4bab0 0%,#9aad96 100%)",
+                display: "flex",
+                alignItems: "flex-end",
+                justifyContent: "center",
+                overflow: "hidden",
+              }}
             >
-              Hello
-            </h1>
-            <p className="text-body/85 mt-4 max-w-xl text-[clamp(0.95rem,2.2vw,1.2rem)] font-medium leading-snug tracking-wide">
-              — Aristide MELESUSU, Développeur Full Stack
+              <svg
+                viewBox="0 0 100 130"
+                width="100%"
+                style={{ marginBottom: -4 }}
+              >
+                <ellipse
+                  cx="50"
+                  cy="42"
+                  rx="22"
+                  ry="24"
+                  fill="#8a7c6e"
+                  opacity=".9"
+                />
+                <ellipse cx="50" cy="40" rx="18" ry="20" fill="#b8a898" />
+                <path d="M20 130 Q50 90 80 130" fill="#6b5d4e" opacity=".8" />
+                <circle cx="44" cy="38" r="2" fill="#5a4a3a" />
+                <circle cx="56" cy="38" r="2" fill="#5a4a3a" />
+                <path
+                  d="M44 46 Q50 50 56 46"
+                  stroke="#5a4a3a"
+                  strokeWidth="1.2"
+                  fill="none"
+                />
+              </svg>
+            </div>
+            <div
+              style={{
+                position: "absolute",
+                top: 12,
+                right: 12,
+                background: "var(--accent)",
+                borderRadius: "50%",
+                width: 36,
+                height: 36,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "1rem",
+              }}
+            >
+              ✦
+            </div>
+          </div>
+        </div>
+
+        <FadeIn delay={0.5}>
+          <div
+            style={{
+              marginTop: "3rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "1rem",
+            }}
+          >
+            <div
+              style={{ width: 40, height: 1, background: "var(--ink-soft)" }}
+            />
+            <p
+              style={{
+                fontSize: ".78rem",
+                color: "var(--ink-soft)",
+                letterSpacing: ".05em",
+              }}
+            >
+              Scroll down ↓
             </p>
           </div>
-        </div>
-
-        {/* Image — remplit la colonne droite dans la grille max-width */}
-        <div className="relative min-h-[42vh] w-full min-w-0 flex-1 overflow-hidden bg-primary/6 lg:min-h-0">
-          <img
-            src={poseImg}
-            alt="Aristide"
-            fetchPriority="high"
-            className="pointer-events-none absolute inset-0 h-full w-full object-cover object-top select-none"
-            decoding="async"
-            draggable={false}
-          />
-        </div>
+        </FadeIn>
       </div>
 
-      {/* Scroll : bas de section, aligné icône header, sans survol */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20">
-        <div className={shellClass}>
-          <button
-            type="button"
-            onClick={scrollToAbout}
-            className="text-primary/80 pointer-events-auto mb-5 mt-2 inline-flex items-center gap-2 border-0 bg-transparent p-0 text-left text-[12px] font-normal tracking-wide sm:mb-6 lg:mb-7"
-            aria-label="Descendre vers la présentation"
-          >
-            <span>scroll</span>
-            <span
-              className="fa fa-long-arrow-down translate-y-px text-[10px] leading-none text-primary/80"
-              aria-hidden="true"
-            />
-          </button>
-        </div>
-      </div>
+      <style>{`
+        @keyframes float0 { from { transform: translateY(0) } to { transform: translateY(-8px) } }
+        @keyframes float1 { from { transform: translateY(0) } to { transform: translateY(-12px) } }
+        @keyframes float2 { from { transform: translateY(0) } to { transform: translateY(-6px) } }
+        @keyframes float3 { from { transform: translateY(0) } to { transform: translateY(-10px) } }
+        @keyframes float4 { from { transform: translateY(0) } to { transform: translateY(-9px) } }
+      `}</style>
     </section>
   );
 }

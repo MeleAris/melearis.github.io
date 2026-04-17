@@ -1,35 +1,27 @@
-import { useEffect, useState } from 'react';
 import About from './components/About';
+import Blog from './components/Blog';
 import Contact from './components/Contact';
+import CTA from './components/CTA';
+import Experience from './components/Experience';
 import Footer from './components/Footer';
+import GalleryStrip from './components/GalleryStrip';
 import Hero from './components/Hero';
-import Loader from './components/Loader';
-import Navbar from './components/Navbar';
-import Services from './components/Services';
-import Skills from './components/Skills';
-import { useAnimateOnScroll } from './hooks/useAnimateOnScroll';
+import Nav from './components/Nav';
+import Portfolio from './components/Portfolio';
 
 export default function App() {
-  const [loading, setLoading] = useState(true);
-  useAnimateOnScroll();
-
-  useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 400);
-    return () => clearTimeout(t);
-  }, []);
-
   return (
-    <div className="min-h-screen bg-white font-sans antialiased text-body">
-      <Loader visible={loading} />
-      <div className="flex min-h-dvh flex-col">
-        <Navbar />
-        <Hero />
-      </div>
+    <>
+      <Nav />
+      <Hero />
       <About />
-      <Skills />
-      <Services />
+      <GalleryStrip />
+      <Experience />
+      <CTA />
+      <Portfolio />
+      <Blog />
       <Contact />
       <Footer />
-    </div>
+    </>
   );
 }
