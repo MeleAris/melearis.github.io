@@ -4,7 +4,7 @@ export default function Hero() {
   const letters = "Hello".split("");
 
   return (
-    <section
+    <section id="hero"
       style={{
         minHeight: "100vh",
         display: "flex",
@@ -60,7 +60,7 @@ export default function Hero() {
               marginBottom: "1rem",
             }}
           >
-            Hi — It&apos;s D&apos;Nova, a Design Virtuoso
+            Aristide, Développeur full stack
           </p>
         </FadeIn>
 
@@ -193,13 +193,26 @@ export default function Hero() {
         </div>
 
         <FadeIn delay={0.5}>
-          <div
+          <button
+            onClick={() => {
+              const section = document.getElementById("a-propos");
+              if (section) {
+                section.scrollIntoView({ behavior: "smooth" });
+                section.setAttribute("tabindex", "-1"); // Ensure it's focusable for accessibility
+                section.focus({ preventScroll: true });
+              }
+            }}
             style={{
               marginTop: "3rem",
               display: "flex",
               alignItems: "center",
               gap: "1rem",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
             }}
+            aria-label="Scroll to About section"
           >
             <div
               style={{ width: 40, height: 1, background: "var(--ink-soft)" }}
@@ -213,7 +226,7 @@ export default function Hero() {
             >
               Scroll down ↓
             </p>
-          </div>
+          </button>
         </FadeIn>
       </div>
 

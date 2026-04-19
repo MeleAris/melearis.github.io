@@ -3,7 +3,7 @@ import FadeIn from "./FadeIn";
 export default function About() {
   return (
     <section
-      id="about-me"
+      id="a-propos"
       style={{ padding: "6rem 3rem", maxWidth: 1100, margin: "0 auto" }}
     >
       <div
@@ -24,7 +24,7 @@ export default function About() {
               marginBottom: ".75rem",
             }}
           >
-            About Me
+            A propos
           </p>
           <h2
             style={{
@@ -35,7 +35,7 @@ export default function About() {
               marginBottom: "1.5rem",
             }}
           >
-            I turn ideas into impactful digital experiences
+            Je transforme des idées en expériences digitales impactantes
           </h2>
           <p
             style={{
@@ -52,8 +52,8 @@ export default function About() {
           </p>
           <div style={{ display: "flex", gap: "2rem" }}>
             {[
-              ["10+", "Years experience"],
-              ["120%", "Avg. client engagement increase"],
+              ["+4", "Années d'expérience"],
+              ["120%", "Augmentation de la satisfaction client"],
             ].map(([value, label]) => (
               <div
                 key={value}

@@ -27,16 +27,33 @@ export default function Nav() {
         transition: "all .4s ease",
       }}
     >
-      <span
+      <button
+        onClick={() => {
+          const section = document.getElementById("hero"); // Assumes <Hero /> is the first <section>
+          if (section) {
+            section.scrollIntoView({ behavior: "smooth" });
+            section.setAttribute("tabindex", "-1"); // Ensure it's focusable for accessibility
+            section.focus({ preventScroll: true });
+          }
+        }}
         style={{
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          padding: 0,
           fontFamily: "Playfair Display",
           fontWeight: 700,
           fontSize: "1.25rem",
           letterSpacing: "-.01em",
+          outline: "none",
+          color: "inherit",
         }}
+        aria-label="Aller au début de la page"
+        tabIndex={0}
       >
-        D&apos;Nova
-      </span>
+        MKA
+      </button>
+
       <div
         style={{
           display: "flex",
@@ -45,7 +62,7 @@ export default function Nav() {
           color: "var(--ink-soft)",
         }}
       >
-        {["About Me", "Portfolio", "Services", "Blog"].map((label) => (
+        {["A propos", "Portfolio", "Services", "Blog"].map((label) => (
           <a
             key={label}
             href={`#${label.toLowerCase().replace(" ", "-")}`}
@@ -85,7 +102,7 @@ export default function Nav() {
           e.target.style.color = "var(--ink)";
         }}
       >
-        Book A Call ↗
+        Contactez-moi ↗
       </a>
     </nav>
   );
