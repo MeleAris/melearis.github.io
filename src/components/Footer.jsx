@@ -22,7 +22,7 @@ export default function Footer() {
             color: "rgba(255,255,255,.5)",
           }}
         >
-          {["Home", "About Me", "Portfolio", "Services", "Blog"].map(
+          {["Acceuil", "A propos", "Experience", "Portfolio", "Services"].map(
             (label) => (
               <a
                 key={label}
@@ -35,7 +35,7 @@ export default function Footer() {
           )}
         </div>
         <a
-          href="mailto:hello@dnova.com"
+          href="mailto:amelesusu@gmail.com"
           style={{
             fontFamily: "Playfair Display",
             fontWeight: 700,
@@ -45,7 +45,7 @@ export default function Footer() {
             letterSpacing: "-.01em",
           }}
         >
-          hello@dnova.com
+          amelesusu@gmail.com
         </a>
       </div>
     </footer>

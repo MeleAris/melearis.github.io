@@ -47,7 +47,7 @@ export default function CTA() {
               marginBottom: "1rem",
             }}
           >
-            Book Your Free Consultation Now!
+            Réservez votre consultation gratuite maintenant!
           </p>
           <h2
             style={{
@@ -60,7 +60,7 @@ export default function CTA() {
               margin: "0 auto 1rem",
             }}
           >
-            Exclusive Winter Deal — Get a Free Consultation!
+            Offre exclusive — Réservez votre consultation gratuite maintenant!
           </h2>
           <p
             style={{

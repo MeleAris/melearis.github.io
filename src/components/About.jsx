@@ -35,7 +35,7 @@ export default function About() {
               marginBottom: "1.5rem",
             }}
           >
-            Je transforme des idées en expériences digitales impactantes
+            Je livre des solutions qui tiennent en prod
           </h2>
           <p
             style={{
@@ -45,15 +45,14 @@ export default function About() {
               marginBottom: "1.5rem",
             }}
           >
-            I&apos;m a specialist in turning complex problems into elegant
-            solutions. My approach blends creativity with strategic thinking to
-            deliver designs that not only look great but work seamlessly. Ready
-            to start your own project?
+            Ingénieur Full-Stack & DevOps. Applications mobiles, APIs robustes,
+            pipelines CI/CD, orchestration Kubernetes — je couvre l'ensemble du
+            cycle de vie logiciel, du code à la production.
           </p>
           <div style={{ display: "flex", gap: "2rem" }}>
             {[
-              ["+4", "Années d'expérience"],
-              ["120%", "Augmentation de la satisfaction client"],
+              ["3+", "Années d'expérience"],
+              ["5+", "Stack techniques maîtrisées"],
             ].map(([value, label]) => (
               <div
                 key={value}
@@ -105,9 +104,11 @@ export default function About() {
               }}
             >
               <p style={{ fontSize: ".85rem", lineHeight: 1.65 }}>
-                With 4+ years of experience, I specialize in creating intuitive,
-                user-focused designs that solve real-world problems and deliver
-                seamless digital experiences.
+                Ingénieur logiciel avec une double expertise développement et
+                infrastructure, je conçois des applications scalables,
+                sécurisées et maintenables sur l'ensemble de la stack — mobile
+                Flutter, backend NestJS/Spring Boot et déploiements
+                conteneurisés sur Kubernetes.
               </p>
             </div>
             <div
@@ -136,9 +137,9 @@ export default function About() {
                   lineHeight: 1.65,
                 }}
               >
-                I thrive on working closely with clients, blending creativity
-                and strategy to bring their vision to life through thoughtful,
-                impactful design solutions.
+                Au-delà du code, je pilote des projets, encadre des développeurs
+                juniors et m'assure que la livraison technique s'aligne avec les
+                objectifs métier.
               </p>
             </div>
           </div>

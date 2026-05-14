@@ -12,7 +12,8 @@ export default function Contact() {
             marginBottom: ".75rem",
           }}
         >
-          I&apos;m always excited to collaborate on new and innovative projects.
+          Je suis toujours enthousiaste à collaborer sur de nouveaux et
+          innovants projets.
         </p>
         <h2
           style={{
@@ -22,10 +23,10 @@ export default function Contact() {
             marginBottom: "1.5rem",
           }}
         >
-          Got a Vision? Let&apos;s Bring It to Life!
+          Vous avez une vision? Faisons-la vivre!
         </h2>
         <a
-          href="mailto:hello@dnova.com"
+          href="mailto:amelesusu@gmail.com"
           style={{
             display: "inline-block",
             padding: ".85rem 2.5rem",
@@ -37,7 +38,7 @@ export default function Contact() {
             fontSize: ".85rem",
           }}
         >
-          Book a Call ↗
+          Contactez-moi ↗
         </a>
       </FadeIn>
     </section>

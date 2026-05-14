@@ -1,5 +1,5 @@
 import About from './components/About';
-import Blog from './components/Blog';
+import Service from './components/Service';
 import Contact from './components/Contact';
 import CTA from './components/CTA';
 import Experience from './components/Experience';
@@ -17,9 +17,8 @@ export default function App() {
       <About />
       <GalleryStrip />
       <Experience />
-      <CTA />
       <Portfolio />
-      <Blog />
+      <Service />
       <Contact />
       <Footer />
     </>

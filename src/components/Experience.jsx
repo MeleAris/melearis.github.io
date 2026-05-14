@@ -4,7 +4,7 @@ import FadeIn from "./FadeIn";
 export default function Experience() {
   return (
     <section
-      id="services"
+      id="experience"
       style={{ padding: "5rem 3rem", background: "var(--white)" }}
     >
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
@@ -26,7 +26,7 @@ export default function Experience() {
                 marginBottom: ".6rem",
               }}
             >
-              ✦ Experience
+              ✦ Expérience
             </p>
             <h2
               style={{
@@ -36,7 +36,7 @@ export default function Experience() {
                 lineHeight: 1.15,
               }}
             >
-              Explore My Design Journey
+              Explorer mon parcours
             </h2>
           </div>
           <div
@@ -54,9 +54,11 @@ export default function Experience() {
                 marginBottom: "1rem",
               }}
             >
-              Over the past 4+ years, I&apos;ve had the opportunity to work on a
-              wide range of design projects, collaborating with diverse teams
-              and clients to bring creative visions to life.
+              J&apos;ai travaillé sur des projets à fort enjeu : plateforme
+              d&apos;identité biométrique nationale, système électoral,
+              applications métier avec intégrations d&apos;API tierces.
+              J&apos;apporte à chaque projet une rigueur et une capacité à
+              collaborer avec différentes équipes.
             </p>
             <a
               href="#contact"
@@ -70,7 +72,7 @@ export default function Experience() {
                 color: "var(--ink)",
               }}
             >
-              Book a Call →
+              Contactez-moi →
             </a>
           </div>
         </div>
@@ -81,13 +83,14 @@ export default function Experience() {
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "220px 1fr auto",
-                  alignItems: "center",
+                  gridTemplateColumns:
+                    "minmax(200px, 26%) minmax(0, 1fr) minmax(140px, 220px)",
+                  alignItems: "start",
                   gap: "2rem",
                   padding: "1.5rem 0",
                   borderBottom: "1px solid rgba(0,0,0,.08)",
                   cursor: "pointer",
-                  transition: "background .2s",
+                  transition: "background .2s, padding-left .2s",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.paddingLeft = "1rem";
@@ -96,33 +99,59 @@ export default function Experience() {
                   e.currentTarget.style.paddingLeft = "0";
                 }}
               >
-                <div>
-                  <p style={{ fontWeight: 500, fontSize: ".95rem" }}>
+                {/* Colonne gauche : entreprise, poste, période — ne rétrécit pas */}
+                <div style={{ minWidth: 0, flexShrink: 0 }}>
+                  <p
+                    style={{
+                      fontWeight: 500,
+                      fontSize: ".95rem",
+                      marginBottom: ".35rem",
+                    }}
+                  >
                     {experience.company}
-                  </p>
-                  <p style={{ fontSize: ".75rem", color: "var(--ink-soft)" }}>
-                    {experience.location}
                   </p>
                   <p
                     style={{
-                      fontSize: ".72rem",
-                      color: "var(--ink-soft)",
-                      marginTop: ".25rem",
+                      fontSize: ".82rem",
+                      color: "var(--ink)",
+                      lineHeight: 1.45,
+                      marginBottom: ".35rem",
                     }}
                   >
+                    {experience.role}
+                  </p>
+                  <p style={{ fontSize: ".72rem", color: "var(--ink-soft)" }}>
                     {experience.period}
                   </p>
                 </div>
-                <p
+
+                {/* Milieu : description — prend l’espace restant, texte qui wrap */}
+                <div style={{ minWidth: 0 }}>
+                  <p
+                    style={{
+                      fontSize: ".82rem",
+                      color: "var(--ink-soft)",
+                      lineHeight: 1.55,
+                      margin: 0,
+                    }}
+                  >
+                    {experience.description}
+                  </p>
+                </div>
+
+                {/* Droite : tags — colonne à largeur bornée, tags qui passent à la ligne sans comprimer le milieu */}
+                <div
                   style={{
-                    fontSize: ".82rem",
-                    color: "var(--ink-soft)",
-                    lineHeight: 1.55,
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: ".4rem",
+                    justifyContent: "flex-end",
+                    alignContent: "flex-start",
+                    minWidth: 0,
+                    maxWidth: "100%",
+                    flexShrink: 0,
                   }}
                 >
-                  {experience.role}
-                </p>
-                <div style={{ display: "flex", gap: ".4rem" }}>
                   {experience.tags.map((tag) => (
                     <span
                       key={tag}
@@ -130,13 +159,16 @@ export default function Experience() {
                         padding: ".3rem .75rem",
                         borderRadius: "2rem",
                         fontSize: ".7rem",
-                        background:
-                          tag === "UX" ? "var(--ink)" : "var(--accent)",
+                        background: tag.includes("**")
+                          ? "var(--ink)"
+                          : "var(--accent)",
                         color: "#fff",
                         fontWeight: 500,
+                        whiteSpace: "nowrap",
+                        flexShrink: 0,
                       }}
                     >
-                      {tag}
+                      {tag.replace("**", "")}
                     </span>
                   ))}
                 </div>

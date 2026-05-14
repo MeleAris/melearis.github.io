@@ -62,28 +62,30 @@ export default function Nav() {
           color: "var(--ink-soft)",
         }}
       >
-        {["A propos", "Portfolio", "Services", "Blog"].map((label) => (
-          <a
-            key={label}
-            href={`#${label.toLowerCase().replace(" ", "-")}`}
-            style={{
-              textDecoration: "none",
-              color: "inherit",
-              transition: "color .2s",
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.color = "var(--ink)";
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.color = "var(--ink-soft)";
-            }}
-          >
-            {label}
-          </a>
-        ))}
+        {["A propos", "Experience", "Portfolio", "Services"].map(
+          (label) => (
+            <a
+              key={label}
+              href={`#${label.toLowerCase().replace(" ", "-")}`}
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                transition: "color .2s",
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.color = "var(--ink)";
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.color = "var(--ink-soft)";
+              }}
+            >
+              {label}
+            </a>
+          ),
+        )}
       </div>
       <a
-        href="#contact"
+        href="mailto:amelesusu@gmail.com"
         style={{
           padding: ".55rem 1.3rem",
           border: "1px solid var(--ink)",

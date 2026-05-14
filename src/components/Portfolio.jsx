@@ -27,7 +27,7 @@ export default function Portfolio() {
               marginBottom: "2.5rem",
             }}
           >
-            Latest Works
+            Réalisations récentes
           </h2>
         </FadeIn>
         <div

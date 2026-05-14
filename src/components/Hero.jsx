@@ -4,7 +4,7 @@ export default function Hero() {
   const letters = "Hello".split("");
 
   return (
-    <section id="hero"
+    <section id="acceuil"
       style={{
         minHeight: "100vh",
         display: "flex",
@@ -60,7 +60,7 @@ export default function Hero() {
               marginBottom: "1rem",
             }}
           >
-            Aristide, Développeur full stack
+            Aristide, Ingénieur full stack et DevOps
           </p>
         </FadeIn>
 
