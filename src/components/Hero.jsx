@@ -1,10 +1,11 @@
 import FadeIn from "./FadeIn";
+import HeroOrbit from "./HeroOrbit";
 
 export default function Hero() {
-  const letters = "Hello".split("");
-
   return (
-    <section id="acceuil"
+    <section
+      id="acceuil"
+      className="hero-section"
       style={{
         minHeight: "100vh",
         display: "flex",
@@ -16,6 +17,7 @@ export default function Hero() {
       }}
     >
       <div
+        className="hero-blur-top"
         style={{
           position: "absolute",
           top: "10%",
@@ -29,6 +31,7 @@ export default function Hero() {
         }}
       />
       <div
+        className="hero-blur-bottom"
         style={{
           position: "absolute",
           bottom: "10%",
@@ -43,6 +46,7 @@ export default function Hero() {
       />
 
       <div
+        className="hero-inner"
         style={{
           maxWidth: 1100,
           margin: "0 auto",
@@ -65,63 +69,21 @@ export default function Hero() {
         </FadeIn>
 
         <div
+          className="hero-main-row"
           style={{
             display: "flex",
-            alignItems: "flex-end",
+            alignItems: "center",
             justifyContent: "space-between",
             gap: "2rem",
             flexWrap: "wrap",
           }}
         >
-          <div>
-            <h1
-              style={{
-                fontFamily: "Playfair Display",
-                fontWeight: 900,
-                fontSize: "clamp(5rem,14vw,11rem)",
-                lineHeight: 0.9,
-                letterSpacing: "-.03em",
-                color: "var(--ink)",
-                marginBottom: "1.5rem",
-              }}
-            >
-              {letters.map((letter, index) => (
-                <span
-                  key={index}
-                  style={{
-                    display: "inline-block",
-                    transition: "transform .3s ease",
-                    animation: `float${index} 3s ease-in-out ${index * 0.15}s infinite alternate`,
-                  }}
-                >
-                  {letter}
-                </span>
-              ))}
-            </h1>
-            <div style={{ display: "flex", gap: "3rem" }}>
-              {[
-                ["*200", "Projects completed"],
-                ["*50", "Startups raised"],
-              ].map(([number, label]) => (
-                <div key={number}>
-                  <p
-                    style={{
-                      fontFamily: "Playfair Display",
-                      fontWeight: 700,
-                      fontSize: "2.2rem",
-                    }}
-                  >
-                    {number}
-                  </p>
-                  <p style={{ fontSize: ".78rem", color: "var(--ink-soft)" }}>
-                    {label}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
+          <FadeIn delay={0.15}>
+            <HeroOrbit />
+          </FadeIn>
 
           <div
+            className="hero-avatar"
             style={{
               width: 220,
               height: 280,
@@ -198,7 +160,7 @@ export default function Hero() {
               const section = document.getElementById("a-propos");
               if (section) {
                 section.scrollIntoView({ behavior: "smooth" });
-                section.setAttribute("tabindex", "-1"); // Ensure it's focusable for accessibility
+                section.setAttribute("tabindex", "-1");
                 section.focus({ preventScroll: true });
               }
             }}
@@ -229,14 +191,6 @@ export default function Hero() {
           </button>
         </FadeIn>
       </div>
-
-      <style>{`
-        @keyframes float0 { from { transform: translateY(0) } to { transform: translateY(-8px) } }
-        @keyframes float1 { from { transform: translateY(0) } to { transform: translateY(-12px) } }
-        @keyframes float2 { from { transform: translateY(0) } to { transform: translateY(-6px) } }
-        @keyframes float3 { from { transform: translateY(0) } to { transform: translateY(-10px) } }
-        @keyframes float4 { from { transform: translateY(0) } to { transform: translateY(-9px) } }
-      `}</style>
     </section>
   );
 }

@@ -1,14 +1,93 @@
 import { experiences } from "../constants/content";
 import FadeIn from "./FadeIn";
+import ContactButton from "./ContactButton";
+
+function ProjectCard({ project }) {
+  return (
+    <div className="experience-project">
+      <div className="experience-project__header">
+        <p
+          className="experience-project__title"
+          style={{
+            fontWeight: 500,
+            fontSize: ".88rem",
+            color: "var(--ink)",
+            margin: 0,
+          }}
+        >
+          {project.title}
+        </p>
+        <div className="experience-project__tags">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              style={{
+                padding: ".25rem .65rem",
+                borderRadius: "2rem",
+                fontSize: ".68rem",
+                background: "var(--accent)",
+                color: "#fff",
+                fontWeight: 500,
+                whiteSpace: "nowrap",
+              }}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div className="experience-project__details">
+        <div className="experience-project__details-inner">
+          <p
+            style={{
+              fontSize: ".8rem",
+              color: "var(--ink-soft)",
+              lineHeight: 1.55,
+              marginBottom: ".65rem",
+            }}
+          >
+            {project.description}
+          </p>
+          {project.tasks?.length > 0 && (
+            <ul
+              style={{
+                margin: 0,
+                paddingLeft: "1.1rem",
+                display: "grid",
+                gap: ".35rem",
+              }}
+            >
+              {project.tasks.map((task) => (
+                <li
+                  key={task}
+                  style={{
+                    fontSize: ".75rem",
+                    color: "var(--ink-soft)",
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {task}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Experience() {
   return (
     <section
       id="experience"
+      className="section-pad"
       style={{ padding: "5rem 3rem", background: "var(--white)" }}
     >
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <div
+          className="grid-2-col"
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
@@ -60,20 +139,18 @@ export default function Experience() {
               J&apos;apporte à chaque projet une rigueur et une capacité à
               collaborer avec différentes équipes.
             </p>
-            <a
-              href="#contact"
+            <ContactButton
               style={{
                 display: "inline-flex",
                 alignItems: "center",
                 gap: ".5rem",
                 fontSize: ".82rem",
                 fontWeight: 500,
-                textDecoration: "none",
                 color: "var(--ink)",
               }}
             >
               Contactez-moi →
-            </a>
+            </ContactButton>
           </div>
         </div>
 
@@ -81,25 +158,16 @@ export default function Experience() {
           {experiences.map((experience, index) => (
             <FadeIn key={experience.company + index} delay={index * 0.1}>
               <div
+                className="experience-item"
                 style={{
                   display: "grid",
-                  gridTemplateColumns:
-                    "minmax(200px, 26%) minmax(0, 1fr) minmax(140px, 220px)",
+                  gridTemplateColumns: "minmax(200px, 26%) minmax(0, 1fr)",
                   alignItems: "start",
                   gap: "2rem",
                   padding: "1.5rem 0",
                   borderBottom: "1px solid rgba(0,0,0,.08)",
-                  cursor: "pointer",
-                  transition: "background .2s, padding-left .2s",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.paddingLeft = "1rem";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.paddingLeft = "0";
                 }}
               >
-                {/* Colonne gauche : entreprise, poste, période — ne rétrécit pas */}
                 <div style={{ minWidth: 0, flexShrink: 0 }}>
                   <p
                     style={{
@@ -120,56 +188,56 @@ export default function Experience() {
                   >
                     {experience.role}
                   </p>
-                  <p style={{ fontSize: ".72rem", color: "var(--ink-soft)" }}>
-                    {experience.period}
-                  </p>
-                </div>
-
-                {/* Milieu : description — prend l’espace restant, texte qui wrap */}
-                <div style={{ minWidth: 0 }}>
                   <p
                     style={{
-                      fontSize: ".82rem",
+                      fontSize: ".72rem",
                       color: "var(--ink-soft)",
-                      lineHeight: 1.55,
-                      margin: 0,
+                      marginBottom: ".75rem",
                     }}
                   >
-                    {experience.description}
+                    {experience.period}
                   </p>
-                </div>
-
-                {/* Droite : tags — colonne à largeur bornée, tags qui passent à la ligne sans comprimer le milieu */}
-                <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: ".4rem",
-                    justifyContent: "flex-end",
-                    alignContent: "flex-start",
-                    minWidth: 0,
-                    maxWidth: "100%",
-                    flexShrink: 0,
-                  }}
-                >
-                  {experience.tags.map((tag) => (
-                    <span
-                      key={tag}
+                  {experience.tags?.length > 0 && (
+                    <div
+                      className="experience-tags"
                       style={{
-                        padding: ".3rem .75rem",
-                        borderRadius: "2rem",
-                        fontSize: ".7rem",
-                        background: tag.includes("**")
-                          ? "var(--ink)"
-                          : "var(--accent)",
-                        color: "#fff",
-                        fontWeight: 500,
-                        whiteSpace: "nowrap",
-                        flexShrink: 0,
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: ".35rem",
+                        justifyContent: "flex-start",
                       }}
                     >
-                      {tag.replace("**", "")}
-                    </span>
+                      {experience.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          style={{
+                            padding: ".25rem .6rem",
+                            borderRadius: "2rem",
+                            fontSize: ".65rem",
+                            background: tag.includes("**")
+                              ? "var(--ink)"
+                              : "var(--card-bg)",
+                            color: tag.includes("**") ? "#fff" : "var(--ink-soft)",
+                            fontWeight: 500,
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {tag.replace("**", "")}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div
+                  style={{
+                    minWidth: 0,
+                    display: "grid",
+                    gap: ".75rem",
+                  }}
+                >
+                  {experience.projects?.map((project) => (
+                    <ProjectCard key={project.title + project.description} project={project} />
                   ))}
                 </div>
               </div>

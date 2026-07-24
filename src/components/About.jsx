@@ -4,9 +4,11 @@ export default function About() {
   return (
     <section
       id="a-propos"
+      className="section-pad-lg"
       style={{ padding: "6rem 3rem", maxWidth: 1100, margin: "0 auto" }}
     >
       <div
+        className="grid-2-col"
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
@@ -49,7 +51,7 @@ export default function About() {
             pipelines CI/CD, orchestration Kubernetes — je couvre l'ensemble du
             cycle de vie logiciel, du code à la production.
           </p>
-          <div style={{ display: "flex", gap: "2rem" }}>
+          <div className="about-stats" style={{ display: "flex", gap: "2rem" }}>
             {[
               ["3+", "Années d'expérience"],
               ["5+", "Stack techniques maîtrisées"],

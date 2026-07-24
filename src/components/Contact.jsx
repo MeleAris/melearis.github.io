@@ -1,8 +1,13 @@
+import ContactButton from "./ContactButton";
 import FadeIn from "./FadeIn";
 
 export default function Contact() {
   return (
-    <section id="contact" style={{ padding: "6rem 3rem", textAlign: "center" }}>
+    <section
+      id="contact"
+      className="section-pad-lg"
+      style={{ padding: "6rem 3rem", textAlign: "center" }}
+    >
       <FadeIn>
         <p
           style={{
@@ -12,8 +17,7 @@ export default function Contact() {
             marginBottom: ".75rem",
           }}
         >
-          Je suis toujours enthousiaste à collaborer sur de nouveaux et
-          innovants projets.
+          Je suis toujours enthousiaste à collaborer sur des projets innovants.
         </p>
         <h2
           style={{
@@ -23,23 +27,21 @@ export default function Contact() {
             marginBottom: "1.5rem",
           }}
         >
-          Vous avez une vision? Faisons-la vivre!
+          Vous avez une idée? Faisons-la vivre!
         </h2>
-        <a
-          href="mailto:amelesusu@gmail.com"
+        <ContactButton
           style={{
             display: "inline-block",
             padding: ".85rem 2.5rem",
             background: "var(--ink)",
             color: "#fff",
             borderRadius: "2rem",
-            textDecoration: "none",
             fontWeight: 500,
             fontSize: ".85rem",
           }}
         >
           Contactez-moi ↗
-        </a>
+        </ContactButton>
       </FadeIn>
     </section>
   );

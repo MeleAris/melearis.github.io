@@ -3,7 +3,7 @@ import FadeIn from "./FadeIn";
 
 export default function Portfolio() {
   return (
-    <section id="portfolio" style={{ padding: "5rem 3rem" }}>
+    <section id="portfolio" className="section-pad" style={{ padding: "5rem 3rem" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <FadeIn>
           <p
@@ -31,6 +31,7 @@ export default function Portfolio() {
           </h2>
         </FadeIn>
         <div
+          className="grid-3-col"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3,1fr)",
@@ -103,7 +104,7 @@ export default function Portfolio() {
             </FadeIn>
           ))}
         </div>
-        <div style={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
+        <div className="portfolio-btns" style={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
           <a
             href="#"
             style={{

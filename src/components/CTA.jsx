@@ -2,8 +2,9 @@ import FadeIn from "./FadeIn";
 
 export default function CTA() {
   return (
-    <section style={{ padding: "3rem" }}>
+    <section className="section-pad-cta" style={{ padding: "3rem" }}>
       <div
+        className="section-pad-cta-inner"
         style={{
           maxWidth: 1100,
           margin: "0 auto",

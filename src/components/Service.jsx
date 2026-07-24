@@ -5,6 +5,7 @@ export default function Service() {
   return (
     <section
       id="services"
+      className="section-pad"
       style={{ padding: "5rem 3rem", background: "var(--white)" }}
     >
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
@@ -48,6 +49,7 @@ export default function Service() {
           </p>
         </FadeIn>
         <div
+          className="grid-3-col"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3,1fr)",

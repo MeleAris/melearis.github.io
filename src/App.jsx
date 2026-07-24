@@ -1,17 +1,18 @@
 import About from './components/About';
 import Service from './components/Service';
 import Contact from './components/Contact';
-import CTA from './components/CTA';
+import ContactModal from './components/ContactModal';
 import Experience from './components/Experience';
 import Footer from './components/Footer';
 import GalleryStrip from './components/GalleryStrip';
 import Hero from './components/Hero';
 import Nav from './components/Nav';
 import Portfolio from './components/Portfolio';
+import { ContactModalProvider } from './context/ContactModalContext';
 
 export default function App() {
   return (
-    <>
+    <ContactModalProvider>
       <Nav />
       <Hero />
       <About />
@@ -21,6 +22,7 @@ export default function App() {
       <Service />
       <Contact />
       <Footer />
-    </>
+      <ContactModal />
+    </ContactModalProvider>
   );
 }

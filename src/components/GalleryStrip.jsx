@@ -2,14 +2,15 @@ import FadeIn from "./FadeIn";
 
 export default function GalleryStrip() {
   const items = [
-    { bg: "#d4c4a8", label: "Halo Digital Agency website" },
-    { bg: "#c0cac0", label: "Halo Digital Agency website" },
-    { bg: "#ccc4b8", label: "Digital Agency website" },
+    { bg: "#d4c4a8", label: "Kubernetes" },
+    { bg: "#c0cac0", label: "SUSE Rancher Administration" },
+    { bg: "#ccc4b8", label: "PostgreSQL" },
   ];
 
   return (
-    <section style={{ padding: "2rem 3rem 4rem", overflow: "hidden" }}>
+    <section className="section-pad-sm" style={{ padding: "2rem 3rem 4rem", overflow: "hidden" }}>
       <div
+        className="gallery-row"
         style={{
           display: "flex",
           gap: "1.5rem",
