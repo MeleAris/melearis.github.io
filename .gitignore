@@ -3,5 +3,13 @@ dist
 .DS_Store
 *.local
 
+.env
+.env.local
+
+firebase*
+.firebase*
+firestore.*
+storage.*
+
 .agents/*
 skills-lock.json

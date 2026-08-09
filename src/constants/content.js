@@ -149,6 +149,7 @@ export const services = [
     bullets: ['Applications intuitives', 'Notification In-App', 'Intégration de moyen de paiement'],
     stack: ['Flutter', 'Firebase', 'WhatsApp API', 'Stripe'],
     color: '#e8d5c4',
+    imageUrl: '/services/mobile.png?v=2',
   },
   {
     category: 'Dev',
@@ -158,6 +159,7 @@ export const services = [
     bullets: ['Application responsive', 'Intégration de API tiers', 'Application e-commerce'],
     stack: ['React Js', 'Typescript', 'Tailwind'],
     color: '#e8c4c4',
+    imageUrl: '/services/web.png?v=2',
   },
   {
     category: 'Dev',
@@ -167,6 +169,7 @@ export const services = [
     bullets: ['REST APIs', 'Integration SDK', 'Tests & qualite'],
     stack: ['Spring boot', 'Nest Js', 'PostgreSQL'],
     color: '#e8c4c4',
+    imageUrl: '/services/backend.png?v=2',
   },
   {
     category: 'DevOps',
@@ -176,6 +179,7 @@ export const services = [
     bullets: ['CI/CD', 'Déploiement multi-environnements', 'Observabilité'],
     stack: ['Docker', 'Kubernetes', 'Rancher', 'OpenShift', 'ArgoCD', 'Nexus', 'Gitlab', 'Harbor'],
     color: '#c4d4c4',
+    imageUrl: '/services/devops.png?v=2',
   },
   {
     category: 'Exploitation',
@@ -185,6 +189,7 @@ export const services = [
     bullets: ['Monitoring', 'Gestion des incidents', 'Documentation'],
     stack: ['Jira Service Management', 'Confluence', 'Grafana', 'ELK Stack', 'Prometheus'],
     color: '#b8c4d4',
+    imageUrl: '/services/ops.png?v=2',
   },
   {
     category: 'Conseil',
@@ -194,5 +199,6 @@ export const services = [
     bullets: ['Audit technique', 'Formations', 'Assistance à la numérisation', 'Assistance à l\'intégration de l\'IA'],
     stack: ['Architecture', 'Méthodes Agile', 'Best practices'],
     color: '#c4d4b8',
+    imageUrl: '/services/conseil.png?v=2',
   },
 ];

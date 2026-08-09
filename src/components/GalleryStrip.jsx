@@ -1,14 +1,19 @@
 import FadeIn from "./FadeIn";
+import { useGallery } from "../hooks/useGallery";
 
 export default function GalleryStrip() {
-  const items = [
-    { bg: "#d4c4a8", label: "Kubernetes" },
-    { bg: "#c0cac0", label: "SUSE Rancher Administration" },
-    { bg: "#ccc4b8", label: "PostgreSQL" },
-  ];
+  const { items } = useGallery();
+
+  if (items.length === 0) {
+    return null;
+  }
 
   return (
-    <section className="section-pad-sm" style={{ padding: "2rem 3rem 4rem", overflow: "hidden" }}>
+    <section
+      className="section-pad-sm"
+      aria-label="Certifications"
+      style={{ padding: "2rem 3rem 4rem", overflow: "hidden" }}
+    >
       <div
         className="gallery-row"
         style={{
@@ -18,22 +23,23 @@ export default function GalleryStrip() {
           margin: "0 auto",
         }}
       >
-        {items.map((item, index) => (
-          <FadeIn
-            key={item.label + index}
-            delay={index * 0.15}
-            style={{ flex: 1 }}
-          >
-            <div
-              style={{
-                borderRadius: "1.5rem",
-                overflow: "hidden",
-                aspectRatio: "4/3",
-                background: item.bg,
-                position: "relative",
-                cursor: "pointer",
-              }}
-            >
+        {items.map((item, index) => {
+          const cardStyle = {
+            borderRadius: "1.5rem",
+            overflow: "hidden",
+            aspectRatio: "4/3",
+            background: item.imageUrl
+              ? `${item.bg} url(${item.imageUrl}) center/cover no-repeat`
+              : item.bg,
+            position: "relative",
+            cursor: item.href ? "pointer" : "default",
+            display: "block",
+            textDecoration: "none",
+            color: "inherit",
+          };
+
+          const label = (
+            <>
               <div
                 style={{
                   position: "absolute",
@@ -42,24 +48,27 @@ export default function GalleryStrip() {
                     "linear-gradient(135deg, rgba(255,255,255,.2) 0%, transparent 60%)",
                 }}
               />
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: 16,
-                  right: 16,
-                  width: 40,
-                  height: 40,
-                  borderRadius: "50%",
-                  background: "var(--ink)",
-                  color: "#fff",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "1.1rem",
-                }}
-              >
-                ↗
-              </div>
+              {item.href ? (
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 16,
+                    right: 16,
+                    width: 40,
+                    height: 40,
+                    borderRadius: "50%",
+                    background: "var(--ink)",
+                    color: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "1.1rem",
+                  }}
+                  aria-hidden="true"
+                >
+                  ↗
+                </div>
+              ) : null}
               <div
                 style={{
                   position: "absolute",
@@ -71,9 +80,33 @@ export default function GalleryStrip() {
               >
                 {item.label}
               </div>
-            </div>
-          </FadeIn>
-        ))}
+            </>
+          );
+
+          return (
+            <FadeIn
+              key={item.id ?? `${item.label}-${index}`}
+              delay={index * 0.15}
+              style={{ flex: 1 }}
+            >
+              {item.href ? (
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={cardStyle}
+                  aria-label={`Certification ${item.label}`}
+                >
+                  {label}
+                </a>
+              ) : (
+                <div style={cardStyle} aria-label={`Certification ${item.label}`}>
+                  {label}
+                </div>
+              )}
+            </FadeIn>
+          );
+        })}
       </div>
     </section>
   );

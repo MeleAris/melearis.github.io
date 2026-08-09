@@ -1,6 +1,8 @@
-import { experiences } from "../constants/content";
+import { useSiteProfileContext } from "../context/SiteProfileContext";
+import { useExperience } from "../hooks/useExperience";
 import FadeIn from "./FadeIn";
 import ContactButton from "./ContactButton";
+import RichText from "./RichText";
 
 function ProjectCard({ project }) {
   return (
@@ -79,6 +81,9 @@ function ProjectCard({ project }) {
 }
 
 export default function Experience() {
+  const { profile } = useSiteProfileContext();
+  const { intro, experiences } = useExperience();
+
   return (
     <section
       id="experience"
@@ -115,7 +120,7 @@ export default function Experience() {
                 lineHeight: 1.15,
               }}
             >
-              Explorer mon parcours
+              {intro.title}
             </h2>
           </div>
           <div
@@ -125,20 +130,16 @@ export default function Experience() {
               justifyContent: "flex-end",
             }}
           >
-            <p
+            <RichText
+              html={intro.body}
+              className="rich-text--soft"
               style={{
                 color: "var(--ink-soft)",
                 lineHeight: 1.7,
                 fontSize: ".9rem",
                 marginBottom: "1rem",
               }}
-            >
-              J&apos;ai travaillé sur des projets à fort enjeu : plateforme
-              d&apos;identité biométrique nationale, système électoral,
-              applications métier avec intégrations d&apos;API tierces.
-              J&apos;apporte à chaque projet une rigueur et une capacité à
-              collaborer avec différentes équipes.
-            </p>
+            />
             <ContactButton
               style={{
                 display: "inline-flex",
@@ -149,14 +150,14 @@ export default function Experience() {
                 color: "var(--ink)",
               }}
             >
-              Contactez-moi →
+              {profile.ctaLabel}
             </ContactButton>
           </div>
         </div>
 
         <div style={{ borderTop: "1px solid rgba(0,0,0,.08)" }}>
           {experiences.map((experience, index) => (
-            <FadeIn key={experience.company + index} delay={index * 0.1}>
+            <FadeIn key={experience.id ?? experience.company + index} delay={index * 0.1}>
               <div
                 className="experience-item"
                 style={{
@@ -237,7 +238,7 @@ export default function Experience() {
                   }}
                 >
                   {experience.projects?.map((project) => (
-                    <ProjectCard key={project.title + project.description} project={project} />
+                    <ProjectCard key={project.id ?? project.title + project.description} project={project} />
                   ))}
                 </div>
               </div>

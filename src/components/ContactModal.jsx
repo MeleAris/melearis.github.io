@@ -1,32 +1,35 @@
-import { useEffect, useState } from 'react';
-import { FORMSPREE_ACTION } from '../constants/contact';
-import { useContactModal } from '../context/ContactModalContext';
+import { useEffect, useState } from "react";
+import { FORMSPREE_ACTION } from "../constants/contact";
+import { useContactModal } from "../context/ContactModalContext";
+import { useSiteProfileContext } from "../context/SiteProfileContext";
 
 export default function ContactModal() {
   const { isOpen, closeContactModal } = useContactModal();
-  const [status, setStatus] = useState('idle');
-  const [feedback, setFeedback] = useState('');
+  const { profile } = useSiteProfileContext();
+  const formspreeAction = profile.formspreeAction || FORMSPREE_ACTION;
+  const [status, setStatus] = useState("idle");
+  const [feedback, setFeedback] = useState("");
 
   useEffect(() => {
     if (!isOpen) return;
 
     const handleKeyDown = (event) => {
-      if (event.key === 'Escape') closeContactModal();
+      if (event.key === "Escape") closeContactModal();
     };
 
-    document.body.style.overflow = 'hidden';
-    window.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.body.style.overflow = '';
-      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, closeContactModal]);
 
   useEffect(() => {
     if (!isOpen) {
-      setStatus('idle');
-      setFeedback('');
+      setStatus("idle");
+      setFeedback("");
     }
   }, [isOpen]);
 
@@ -34,44 +37,49 @@ export default function ContactModal() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setStatus('sending');
-    setFeedback('');
+    setStatus("sending");
+    setFeedback("");
 
-    if (!FORMSPREE_ACTION) {
-      setStatus('error');
-      setFeedback('Formspree n\'est pas encore configuré. Ajoutez votre endpoint dans src/constants/contact.js');
+    if (!formspreeAction) {
+      setStatus("error");
+      setFeedback(
+        "Formspree n'est pas encore configuré. Ajoutez l'URL dans l'admin (Profil / site) ou src/constants/contact.js",
+      );
       return;
     }
 
     const form = event.currentTarget;
 
     try {
-      const response = await fetch(FORMSPREE_ACTION, {
-        method: 'POST',
+      const response = await fetch(formspreeAction, {
+        method: "POST",
         body: new FormData(form),
-        headers: { Accept: 'application/json' },
+        headers: { Accept: "application/json" },
       });
 
       const data = await response.json().catch(() => ({}));
 
       if (response.ok) {
-        setStatus('success');
-        setFeedback('Message envoyé. Merci !');
+        setStatus("success");
+        setFeedback("Merci de prendre contact je vous réponds très vite");
         form.reset();
         return;
       }
 
-      setStatus('error');
+      setStatus("error");
       const message =
         Array.isArray(data.errors) && data.errors.length > 0
-          ? data.errors.map((err) => err.message).filter(Boolean).join(' ')
-          : typeof data.error === 'string'
+          ? data.errors
+              .map((err) => err.message)
+              .filter(Boolean)
+              .join(" ")
+          : typeof data.error === "string"
             ? data.error
             : "L'envoi a échoué. Vérifiez les champs ou réessayez.";
       setFeedback(message);
     } catch {
-      setStatus('error');
-      setFeedback('Erreur réseau. Réessayez plus tard.');
+      setStatus("error");
+      setFeedback("Erreur réseau. Réessayez plus tard.");
     }
   };
 
@@ -99,11 +107,11 @@ export default function ContactModal() {
 
         <p
           style={{
-            fontSize: '.7rem',
-            letterSpacing: '.15em',
-            textTransform: 'uppercase',
-            color: 'var(--accent)',
-            marginBottom: '.5rem',
+            fontSize: ".7rem",
+            letterSpacing: ".15em",
+            textTransform: "uppercase",
+            color: "var(--accent)",
+            marginBottom: ".5rem",
           }}
         >
           Contact
@@ -111,10 +119,10 @@ export default function ContactModal() {
         <h2
           id="contact-modal-title"
           style={{
-            fontFamily: 'Playfair Display',
-            fontSize: 'clamp(1.4rem,3vw,1.9rem)',
+            fontFamily: "Playfair Display",
+            fontSize: "clamp(1.4rem,3vw,1.9rem)",
             fontWeight: 700,
-            marginBottom: '1.25rem',
+            marginBottom: "1.25rem",
           }}
         >
           Contactez-moi
@@ -122,7 +130,7 @@ export default function ContactModal() {
 
         <form
           className="contact-modal__form"
-          action={FORMSPREE_ACTION || undefined}
+          action={formspreeAction || undefined}
           method="POST"
           onSubmit={handleSubmit}
         >
@@ -160,12 +168,12 @@ export default function ContactModal() {
           <button
             type="submit"
             className="contact-modal__submit"
-            disabled={status === 'sending'}
+            disabled={status === "sending"}
           >
-            {status === 'sending' ? 'Envoi…' : 'Envoyer'}
+            {status === "sending" ? "Envoi…" : "Envoyer"}
           </button>
 
-          {(status === 'success' || status === 'error') && feedback && (
+          {(status === "success" || status === "error") && feedback && (
             <p
               className={`contact-modal__feedback contact-modal__feedback--${status}`}
               role="status"

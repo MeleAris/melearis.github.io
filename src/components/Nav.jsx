@@ -1,11 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSiteProfileContext } from "../context/SiteProfileContext";
+import { usePortfolio } from "../hooks/usePortfolio";
 import ContactButton from "./ContactButton";
 
-const navLinks = ["A propos", "Experience", "Portfolio", "Services"];
+const BASE_NAV_LINKS = ["A propos", "Experience", "Portfolio", "Services"];
 
 export default function Nav() {
+  const { profile } = useSiteProfileContext();
+  const { hasWorks } = usePortfolio();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const navLinks = useMemo(
+    () =>
+      hasWorks
+        ? BASE_NAV_LINKS
+        : BASE_NAV_LINKS.filter((label) => label !== "Portfolio"),
+    [hasWorks],
+  );
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -67,7 +79,7 @@ export default function Nav() {
           aria-label="Aller au début de la page"
           tabIndex={0}
         >
-          MKA
+          {profile.brandName}
         </button>
 
         <div
@@ -120,7 +132,7 @@ export default function Nav() {
               e.currentTarget.style.color = "var(--ink)";
             }}
           >
-            Contactez-moi ↗
+            {profile.ctaLabel}
           </ContactButton>
 
           <button
@@ -159,7 +171,7 @@ export default function Nav() {
             }}
             onClick={closeMenu}
           >
-            Contactez-moi ↗
+            {profile.ctaLabel}
           </ContactButton>
         </div>
       )}

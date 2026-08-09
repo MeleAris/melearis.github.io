@@ -1,7 +1,9 @@
-import { services } from "../constants/content";
+import { useServices } from "../hooks/useServices";
 import FadeIn from "./FadeIn";
 
 export default function Service() {
+  const { services } = useServices();
+
   return (
     <section
       id="services"
@@ -57,7 +59,7 @@ export default function Service() {
           }}
         >
           {services.map((service, index) => (
-            <FadeIn key={service.title} delay={index * 0.1}>
+            <FadeIn key={service.id ?? service.title} delay={index * 0.1}>
               <div
                 style={{
                   borderRadius: "1.5rem",
@@ -77,20 +79,16 @@ export default function Service() {
                 }}
               >
                 <div
-                  style={{
-                    height: 200,
-                    background: service.color,
-                    position: "relative",
-                  }}
+                  className="service-card__media"
+                  style={{ background: service.color }}
                 >
-                  <div
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      background:
-                        "linear-gradient(135deg,rgba(255,255,255,.4) 0%,transparent 60%)",
-                    }}
-                  />
+                  {service.imageUrl ? (
+                    <img
+                      className="service-card__illustration"
+                      src={service.imageUrl}
+                      alt=""
+                    />
+                  ) : null}
                   <div
                     style={{
                       position: "absolute",
@@ -98,6 +96,7 @@ export default function Service() {
                       left: 16,
                       display: "flex",
                       gap: ".5rem",
+                      zIndex: 1,
                     }}
                   >
                     <span

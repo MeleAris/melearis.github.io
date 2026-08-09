@@ -1,6 +1,11 @@
 import FadeIn from "./FadeIn";
+import HeroOrbit from "./HeroOrbit";
+import RichText from "./RichText";
+import { useAbout } from "../hooks/useAbout";
 
 export default function About() {
+  const { about, stats } = useAbout();
+
   return (
     <section
       id="a-propos"
@@ -26,7 +31,7 @@ export default function About() {
               marginBottom: ".75rem",
             }}
           >
-            A propos
+            {about.eyebrow}
           </p>
           <h2
             style={{
@@ -37,27 +42,22 @@ export default function About() {
               marginBottom: "1.5rem",
             }}
           >
-            Je livre des solutions qui tiennent en prod
+            {about.title}
           </h2>
-          <p
+          <RichText
+            html={about.intro}
+            className="rich-text--soft"
             style={{
               color: "var(--ink-soft)",
               lineHeight: 1.75,
               fontSize: ".95rem",
               marginBottom: "1.5rem",
             }}
-          >
-            Ingénieur Full-Stack & DevOps. Applications mobiles, APIs robustes,
-            pipelines CI/CD, orchestration Kubernetes — je couvre l'ensemble du
-            cycle de vie logiciel, du code à la production.
-          </p>
+          />
           <div className="about-stats" style={{ display: "flex", gap: "2rem" }}>
-            {[
-              ["3+", "Années d'expérience"],
-              ["5+", "Stack techniques maîtrisées"],
-            ].map(([value, label]) => (
+            {stats.map((stat) => (
               <div
-                key={value}
+                key={stat.id ?? `${stat.value}-${stat.label}`}
                 style={{
                   padding: "1.2rem 1.5rem",
                   background: "var(--card-bg)",
@@ -72,7 +72,7 @@ export default function About() {
                     color: "var(--accent)",
                   }}
                 >
-                  {value}
+                  {stat.value}
                 </p>
                 <p
                   style={{
@@ -81,7 +81,7 @@ export default function About() {
                     marginTop: ".25rem",
                   }}
                 >
-                  {label}
+                  {stat.label}
                 </p>
               </div>
             ))}
@@ -105,13 +105,11 @@ export default function About() {
                 borderRadius: "1.5rem",
               }}
             >
-              <p style={{ fontSize: ".85rem", lineHeight: 1.65 }}>
-                Ingénieur logiciel avec une double expertise développement et
-                infrastructure, je conçois des applications scalables,
-                sécurisées et maintenables sur l'ensemble de la stack — mobile
-                Flutter, backend NestJS/Spring Boot et déploiements
-                conteneurisés sur Kubernetes.
-              </p>
+              <RichText
+                html={about.cardPrimary}
+                className="rich-text--on-dark"
+                style={{ fontSize: ".85rem", lineHeight: 1.65 }}
+              />
             </div>
             <div
               style={{
@@ -132,21 +130,23 @@ export default function About() {
                 borderRadius: "1.5rem",
               }}
             >
-              <p
+              <RichText
+                html={about.cardSecondary}
+                className="rich-text--soft"
                 style={{
                   fontSize: ".82rem",
                   color: "var(--ink-soft)",
                   lineHeight: 1.65,
                 }}
-              >
-                Au-delà du code, je pilote des projets, encadre des développeurs
-                juniors et m'assure que la livraison technique s'aligne avec les
-                objectifs métier.
-              </p>
+              />
             </div>
           </div>
         </FadeIn>
       </div>
+
+      <FadeIn delay={0.25}>
+        <HeroOrbit placeOnHero={false} className="about-stack" />
+      </FadeIn>
     </section>
   );
 }

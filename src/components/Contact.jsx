@@ -1,7 +1,12 @@
+import { useSiteProfileContext } from "../context/SiteProfileContext";
+import { useContact } from "../hooks/useContact";
 import ContactButton from "./ContactButton";
 import FadeIn from "./FadeIn";
 
 export default function Contact() {
+  const { profile } = useSiteProfileContext();
+  const { contact } = useContact();
+
   return (
     <section
       id="contact"
@@ -17,7 +22,7 @@ export default function Contact() {
             marginBottom: ".75rem",
           }}
         >
-          Je suis toujours enthousiaste à collaborer sur des projets innovants.
+          {contact.eyebrow}
         </p>
         <h2
           style={{
@@ -27,7 +32,7 @@ export default function Contact() {
             marginBottom: "1.5rem",
           }}
         >
-          Vous avez une idée? Faisons-la vivre!
+          {contact.title}
         </h2>
         <ContactButton
           style={{
@@ -40,7 +45,7 @@ export default function Contact() {
             fontSize: ".85rem",
           }}
         >
-          Contactez-moi ↗
+          {profile.ctaLabel}
         </ContactButton>
       </FadeIn>
     </section>

@@ -1,7 +1,14 @@
+import { useSiteProfileContext } from "../context/SiteProfileContext";
+import { useHero } from "../hooks/useHero";
 import FadeIn from "./FadeIn";
 import HeroOrbit from "./HeroOrbit";
 
+const HELLO_LETTERS = "Hello".split("");
+
 export default function Hero() {
+  const { profile } = useSiteProfileContext();
+  const { hero } = useHero();
+
   return (
     <section
       id="acceuil"
@@ -64,7 +71,7 @@ export default function Hero() {
               marginBottom: "1rem",
             }}
           >
-            Aristide, Ingénieur full stack et DevOps
+            {profile.fullName}, {profile.jobTitle}
           </p>
         </FadeIn>
 
@@ -72,14 +79,24 @@ export default function Hero() {
           className="hero-main-row"
           style={{
             display: "flex",
-            alignItems: "center",
+            alignItems: "flex-end",
             justifyContent: "space-between",
             gap: "2rem",
             flexWrap: "wrap",
           }}
         >
           <FadeIn delay={0.15}>
-            <HeroOrbit />
+            <h1 className="hero-hello" aria-label="Hello">
+              {HELLO_LETTERS.map((letter, index) => (
+                <span
+                  key={index}
+                  className="hero-hello__letter"
+                  style={{ "--i": index }}
+                >
+                  {letter}
+                </span>
+              ))}
+            </h1>
           </FadeIn>
 
           <div
@@ -154,6 +171,12 @@ export default function Hero() {
           </div>
         </div>
 
+        <FadeIn delay={0.35}>
+          <div className="hero-stack-wrap">
+            <HeroOrbit />
+          </div>
+        </FadeIn>
+
         <FadeIn delay={0.5}>
           <button
             onClick={() => {
@@ -165,7 +188,7 @@ export default function Hero() {
               }
             }}
             style={{
-              marginTop: "3rem",
+              marginTop: "2.5rem",
               display: "flex",
               alignItems: "center",
               gap: "1rem",
@@ -186,7 +209,7 @@ export default function Hero() {
                 letterSpacing: ".05em",
               }}
             >
-              Scroll down ↓
+              {hero.scrollLabel}
             </p>
           </button>
         </FadeIn>
