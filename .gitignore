@@ -6,10 +6,14 @@ dist
 .env
 .env.local
 
-firebase*
-.firebase*
-firestore.*
-storage.*
+# Config / secrets Firebase (ne pas versionner)
+firebase-web-config.json
+firebase.json
+.firebaserc
+.firebase/
+firestore.rules
+firestore.indexes.json
+storage.rules
 
 .agents/*
 skills-lock.json
