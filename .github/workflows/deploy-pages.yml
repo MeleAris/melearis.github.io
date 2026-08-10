@@ -17,6 +17,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Nécessaire si les secrets sont définis sur l'environnement github-pages
+    environment: github-pages
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,8 +32,7 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Build
-        run: npm run build
+      - name: Write production env
         env:
           VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
           VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
@@ -40,6 +41,43 @@ jobs:
           VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
           VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
           VITE_FIREBASE_APPCHECK_SITE_KEY: ${{ secrets.VITE_FIREBASE_APPCHECK_SITE_KEY }}
+        run: |
+          set -euo pipefail
+          missing=0
+          for name in \
+            VITE_FIREBASE_API_KEY \
+            VITE_FIREBASE_AUTH_DOMAIN \
+            VITE_FIREBASE_PROJECT_ID \
+            VITE_FIREBASE_STORAGE_BUCKET \
+            VITE_FIREBASE_MESSAGING_SENDER_ID \
+            VITE_FIREBASE_APP_ID \
+            VITE_FIREBASE_APPCHECK_SITE_KEY
+          do
+            value="${!name-}"
+            if [ -z "$value" ]; then
+              echo "::error::Secret $name is empty. Add it in Settings → Secrets and variables → Actions (Repository secrets), with the exact name."
+              missing=1
+            else
+              echo "$name OK (length=${#value})"
+            fi
+          done
+          if [ "$missing" -ne 0 ]; then
+            exit 1
+          fi
+
+          # Vite lit .env.production au build ; évite les secrets vides injectés silencieusement.
+          {
+            echo "VITE_FIREBASE_API_KEY=${VITE_FIREBASE_API_KEY}"
+            echo "VITE_FIREBASE_AUTH_DOMAIN=${VITE_FIREBASE_AUTH_DOMAIN}"
+            echo "VITE_FIREBASE_PROJECT_ID=${VITE_FIREBASE_PROJECT_ID}"
+            echo "VITE_FIREBASE_STORAGE_BUCKET=${VITE_FIREBASE_STORAGE_BUCKET}"
+            echo "VITE_FIREBASE_MESSAGING_SENDER_ID=${VITE_FIREBASE_MESSAGING_SENDER_ID}"
+            echo "VITE_FIREBASE_APP_ID=${VITE_FIREBASE_APP_ID}"
+            echo "VITE_FIREBASE_APPCHECK_SITE_KEY=${VITE_FIREBASE_APPCHECK_SITE_KEY}"
+          } > .env.production
+
+      - name: Build
+        run: npm run build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
