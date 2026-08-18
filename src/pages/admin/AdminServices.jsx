@@ -116,7 +116,7 @@ function ServiceForm({ service, onChange, disabled }) {
         disabled={disabled}
       />
       <p className="admin-form__hint">
-        PNG transparent recommandé, ~720×480 (ratio 3:2), max 5 Mo. Affiché centré sur la
+        PNG transparent recommandé, ~720×480 (ratio 3:2), max 11 Mo. Affiché centré sur la
         couleur de fond.
       </p>
     </>

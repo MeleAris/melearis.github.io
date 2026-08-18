@@ -24,12 +24,13 @@ const useInView = (threshold = 0.15) => {
   return [ref, visible];
 };
 
-export default function FadeIn({ children, delay = 0, y = 32, style = {} }) {
+export default function FadeIn({ children, delay = 0, y = 32, style = {}, className = '' }) {
   const [ref, visible] = useInView();
 
   return (
     <div
       ref={ref}
+      className={className || undefined}
       style={{
         transition: `opacity .7s ease ${delay}s, transform .7s ease ${delay}s`,
         opacity: visible ? 1 : 0,

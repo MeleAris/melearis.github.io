@@ -185,30 +185,142 @@ body {
   .hero-section {
     padding-left: 1.25rem !important;
     padding-right: 1.25rem !important;
-    min-height: auto !important;
-    padding-top: 5.5rem !important;
-    padding-bottom: 3rem !important;
+    height: auto !important;
+    min-height: 100svh !important;
+    max-height: none !important;
+    padding-top: 5rem !important;
+    padding-bottom: 1.75rem !important;
   }
 
   .hero-inner {
-    padding-top: 1rem !important;
+    padding: 0 !important;
+    height: auto !important;
+    flex: none !important;
   }
 
   .hero-main-row {
+    display: flex !important;
     flex-direction: column !important;
-    align-items: flex-start !important;
+    gap: 1.25rem !important;
   }
 
-  .hero-hello {
-    font-size: clamp(3.75rem, 18vw, 6.5rem);
+  .hero-desktop-only {
+    display: none !important;
+  }
+
+  .hero-mobile-meta {
+    display: flex !important;
+    justify-content: center;
+    width: 100%;
+    order: 2;
+    margin-top: 0.75rem;
+  }
+
+  .hero-mobile-nameplate {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    text-align: center;
+  }
+
+  .hero-mobile-name {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(1.8rem, 7vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .hero-mobile-title {
+    font-size: 0.82rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .hero-copy {
+    order: 4;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    gap: 0 !important;
+    padding: 0 !important;
+    text-align: center;
+  }
+
+  .hero-stack-col {
+    order: 3;
+    height: auto !important;
+    width: 100%;
+    padding: 0;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: visible;
+  }
+
+  .hero-stack--vertical {
+    width: max-content;
+    max-width: 100%;
+    margin-inline: auto;
+  }
+
+  .hero-stack--vertical .hero-stack__list,
+  .hero-stack-col .hero-stack__list {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5rem;
+    width: max-content;
+    margin: 0;
+  }
+
+  .hero-avatar-wrap {
+    order: 1;
+    height: auto !important;
+    width: 100%;
+    max-width: none;
+    justify-self: stretch;
+  }
+
+  .hero-avatar {
+    position: relative;
+    height: auto !important;
+    width: 100%;
+    max-height: 68svh;
+    aspect-ratio: 3 / 4;
+    margin: 0 auto;
+  }
+
+  .hero-avatar__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
   }
 
   .hero-stack-wrap {
-    margin-top: 1.75rem;
+    margin-top: 0.25rem;
+    width: 100%;
   }
 
-  .hero-stack__list {
-    gap: 0.55rem 0.7rem;
+  .hero-scroll-wrap {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 0.75rem;
+  }
+
+  .hero-scroll {
+    margin-top: 0;
+  }
+
+  .hero-stack-col .hero-stack__list {
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    justify-content: flex-start;
   }
 
   .hero-stack__badge {
@@ -221,12 +333,6 @@ body {
   .hero-stack__badge img {
     width: 1.15rem;
     height: 1.15rem;
-  }
-
-  .hero-avatar {
-    width: 100% !important;
-    max-width: 220px !important;
-    align-self: center !important;
   }
 
   .hero-blur-top {
@@ -380,15 +486,129 @@ body {
   color: var(--ink);
 }
 
-/* ── Hero Hello + stack strip ── */
+/* ── Hero Hello + portrait ── */
+.hero-section {
+  position: relative;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.hero-blur-top {
+  position: absolute;
+  top: 10%;
+  right: 15%;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 169, 110, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-blur-bottom {
+  position: absolute;
+  bottom: 10%;
+  left: 5%;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(61, 90, 71, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 5.5rem 0 0;
+}
+
+.hero-main-row {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: stretch;
+  gap: 0;
+}
+
+.hero-stack-col {
+  min-height: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+}
+
+.hero-eyebrow {
+  margin: 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.hero-mobile-meta {
+  display: none;
+}
+
+.hero-hello--mobile {
+  display: none;
+}
+
 .hero-hello {
   font-family: "Playfair Display", serif;
   font-weight: 900;
-  font-size: clamp(4.5rem, 14vw, 11rem);
+  font-size: clamp(4.5rem, 12vw, 10rem);
   line-height: 0.9;
   letter-spacing: -0.03em;
   color: var(--ink);
   margin: 0;
+}
+
+.hero-avatar-wrap {
+  min-height: 0;
+  height: 100%;
+  width: auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: stretch;
+}
+
+.hero-avatar {
+  height: 100%;
+  width: auto;
+  background: transparent;
+  overflow: hidden;
+}
+
+.hero-avatar__img {
+  display: block;
+  height: 100%;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  object-position: right bottom;
 }
 
 .hero-hello__letter {
@@ -414,8 +634,51 @@ body {
 }
 
 .hero-stack-wrap {
-  margin-top: 2.5rem;
+  margin-top: 0.5rem;
   width: 100%;
+}
+
+@media (min-width: 769px) {
+  .hero-stack-col {
+    padding: 0 8rem 1.5rem 6.5rem;
+    overflow-y: auto;
+  }
+
+  .hero-copy {
+    padding: 0 5rem 1.5rem 5rem;
+  }
+
+  .hero-stack--vertical .hero-stack__list {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.7rem;
+  }
+}
+
+.hero-scroll {
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: fit-content;
+}
+
+.hero-scroll__line {
+  width: 40px;
+  height: 1px;
+  background: var(--ink-soft);
+}
+
+.hero-scroll__label {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.05em;
 }
 
 .about-stack {

@@ -55,12 +55,15 @@ export default function Nav() {
         }}
       >
         <button
+          type="button"
           onClick={() => {
-            const section = document.getElementById("hero");
+            const section = document.getElementById("acceuil");
             if (section) {
               section.scrollIntoView({ behavior: "smooth" });
               section.setAttribute("tabindex", "-1");
               section.focus({ preventScroll: true });
+            } else {
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }
             closeMenu();
           }}
@@ -76,7 +79,7 @@ export default function Nav() {
             outline: "none",
             color: "inherit",
           }}
-          aria-label="Aller au début de la page"
+          aria-label="Retour à l'accueil"
           tabIndex={0}
         >
           {profile.brandName}

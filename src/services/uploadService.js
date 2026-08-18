@@ -1,7 +1,7 @@
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../lib/firebase';
 
-const MAX_BYTES = 5 * 1024 * 1024;
+const MAX_BYTES = 11 * 1024 * 1024;
 
 function safeFileName(name) {
   return name.replace(/[^a-zA-Z0-9._-]/g, '_');
@@ -20,7 +20,7 @@ export async function uploadImage(file, folder) {
   }
 
   if (file.size > MAX_BYTES) {
-    throw new Error("L'image ne doit pas dépasser 5 Mo.");
+    throw new Error("L'image ne doit pas dépasser 11 Mo.");
   }
 
   const path = `uploads/${folder}/${Date.now()}-${safeFileName(file.name)}`;

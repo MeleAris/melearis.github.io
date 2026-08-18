@@ -4,15 +4,19 @@ import { db } from '../lib/firebase';
 
 const HERO_REF = doc(db, 'hero', 'main');
 
-const HERO_FIELDS = Object.keys(DEFAULT_HERO);
-
 function validateHero(data) {
-  const result = {};
-  for (const field of HERO_FIELDS) {
-    const value = data?.[field];
-    result[field] = typeof value === 'string' ? value : DEFAULT_HERO[field];
-  }
-  return result;
+  const portraitUrl =
+    typeof data?.portraitUrl === 'string' && data.portraitUrl.trim()
+      ? data.portraitUrl.trim()
+      : '';
+
+  return {
+    scrollLabel:
+      typeof data?.scrollLabel === 'string' && data.scrollLabel.trim()
+        ? data.scrollLabel
+        : DEFAULT_HERO.scrollLabel,
+    portraitUrl,
+  };
 }
 
 export async function getHero() {
