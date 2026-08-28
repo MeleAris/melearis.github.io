@@ -1,0 +1,21 @@
+# Portfolio — Aristide Melesusu (https://amelesusu.me)
+# Site public en français ; application React (page unique avec ancres).
+
+User-agent: *
+Allow: /
+
+# Back-office CMS (connexion Google, non indexable)
+Disallow: /admin
+Disallow: /admin/
+
+# Crawlers IA (optionnel — autoriser l'indexation du contenu public)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://amelesusu.me/sitemap.xml
