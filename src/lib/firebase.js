@@ -16,11 +16,20 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const appCheckSiteKey = import.meta.env.VITE_FIREBASE_APPCHECK_SITE_KEY;
+const appCheckDebugToken = import.meta.env.VITE_FIREBASE_APPCHECK_DEBUG_TOKEN;
 
-if (typeof window !== 'undefined' && appCheckSiteKey) {
+// En production, App Check protège Firestore/Storage via reCAPTCHA Enterprise.
+// En local, il n'est activé que si un jeton de debug explicite est fourni :
+// `self.FIREBASE_APPCHECK_DEBUG_TOKEN = true` générait un jeton aléatoire à
+// chaque profil de navigateur, non enregistré dans la console Firebase — d'où
+// les 403 « App attestation failed » au lieu d'un simple avertissement.
+const shouldEnableAppCheck =
+  Boolean(appCheckSiteKey) && (import.meta.env.PROD || Boolean(appCheckDebugToken));
+
+if (typeof window !== 'undefined' && shouldEnableAppCheck) {
   if (import.meta.env.DEV) {
-    // Affiche un debug token dans la console ; à enregistrer dans Firebase Console → App Check → Manage debug tokens
-    self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+    // Jeton fixe à enregistrer dans Firebase Console → App Check → Jetons de débogage.
+    self.FIREBASE_APPCHECK_DEBUG_TOKEN = appCheckDebugToken;
   }
 
   initializeAppCheck(app, {

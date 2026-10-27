@@ -1,22 +1,32 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSiteProfileContext } from "../context/SiteProfileContext";
+import { useGallery } from "../hooks/useGallery";
 import { usePortfolio } from "../hooks/usePortfolio";
 import ContactButton from "./ContactButton";
 
-const BASE_NAV_LINKS = ["A propos", "Experience", "Portfolio", "Services"];
+const NAV_LINKS = [
+  { label: "A propos" },
+  { label: "Certifications", requires: "certifications" },
+  { label: "Experience" },
+  { label: "Portfolio", requires: "works" },
+  { label: "Services" },
+];
 
 export default function Nav() {
   const { profile } = useSiteProfileContext();
   const { hasWorks } = usePortfolio();
+  const { hasCertifications } = useGallery();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navLinks = useMemo(
     () =>
-      hasWorks
-        ? BASE_NAV_LINKS
-        : BASE_NAV_LINKS.filter((label) => label !== "Portfolio"),
-    [hasWorks],
+      NAV_LINKS.filter(
+        (link) =>
+          (link.requires !== "works" || hasWorks) &&
+          (link.requires !== "certifications" || hasCertifications),
+      ).map((link) => link.label),
+    [hasWorks, hasCertifications],
   );
 
   useEffect(() => {

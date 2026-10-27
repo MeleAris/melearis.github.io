@@ -1,20 +1,31 @@
 import { useMemo } from "react";
 import IconMedia from "./IconMedia";
 import { useContact } from "../hooks/useContact";
+import { useGallery } from "../hooks/useGallery";
 import { usePortfolio } from "../hooks/usePortfolio";
 
-const BASE_FOOTER_LINKS = ["Acceuil", "A propos", "Experience", "Portfolio", "Services"];
+const FOOTER_LINKS = [
+  { label: "Acceuil" },
+  { label: "A propos" },
+  { label: "Certifications", requires: "certifications" },
+  { label: "Experience" },
+  { label: "Portfolio", requires: "works" },
+  { label: "Services" },
+];
 
 export default function Footer() {
   const { socialLinks } = useContact();
   const { hasWorks } = usePortfolio();
+  const { hasCertifications } = useGallery();
 
   const footerLinks = useMemo(
     () =>
-      hasWorks
-        ? BASE_FOOTER_LINKS
-        : BASE_FOOTER_LINKS.filter((label) => label !== "Portfolio"),
-    [hasWorks],
+      FOOTER_LINKS.filter(
+        (link) =>
+          (link.requires !== "works" || hasWorks) &&
+          (link.requires !== "certifications" || hasCertifications),
+      ).map((link) => link.label),
+    [hasWorks, hasCertifications],
   );
 
   return (

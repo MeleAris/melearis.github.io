@@ -1,5 +1,5 @@
 import { useId, useRef, useState } from 'react';
-import { uploadImage } from '../../services/uploadService';
+import { uploadImage, uploadPdf } from '../../services/uploadService';
 
 export default function ImageUploadField({
   label,
@@ -7,11 +7,14 @@ export default function ImageUploadField({
   onChange,
   folder,
   disabled = false,
+  kind = 'image',
 }) {
   const inputId = useId();
   const inputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(null);
+
+  const isPdf = kind === 'pdf';
 
   async function handleFileChange(event) {
     const file = event.target.files?.[0];
@@ -21,7 +24,7 @@ export default function ImageUploadField({
     setError(null);
 
     try {
-      const url = await uploadImage(file, folder);
+      const url = isPdf ? await uploadPdf(file, folder) : await uploadImage(file, folder);
       onChange(url);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Envoi impossible.');
@@ -44,7 +47,16 @@ export default function ImageUploadField({
         <span>{label}</span>
         {value ? (
           <div className="admin-image-upload__preview">
-            <img src={value} alt="" />
+            {isPdf ? (
+              <div className="admin-image-upload__document">
+                <span className="admin-image-upload__document-badge">PDF</span>
+                <a href={value} target="_blank" rel="noreferrer">
+                  Ouvrir le fichier
+                </a>
+              </div>
+            ) : (
+              <img src={value} alt="" />
+            )}
             <button
               type="button"
               className="admin-btn admin-btn--ghost admin-image-upload__clear"
@@ -59,7 +71,7 @@ export default function ImageUploadField({
           id={inputId}
           ref={inputRef}
           type="file"
-          accept="image/*,.svg"
+          accept={isPdf ? 'application/pdf' : 'image/*,.svg'}
           onChange={handleFileChange}
           disabled={disabled || uploading}
         />

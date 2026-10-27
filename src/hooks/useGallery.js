@@ -24,5 +24,7 @@ export function useGallery() {
     refresh();
   }, [refresh]);
 
-  return { items, loading, error, refresh };
+  const hasCertifications = items.length > 0;
+
+  return { items, loading, error, refresh, hasCertifications };
 }
