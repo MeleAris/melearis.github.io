@@ -18,9 +18,10 @@ const FIELD_LABELS = {
   intro: 'Introduction',
   cardPrimary: 'Carte principale (fond sombre)',
   cardSecondary: 'Carte secondaire',
+  cardTertiary: 'Carte dorée (IA au quotidien)',
 };
 
-const RICH_FIELDS = new Set(['intro', 'cardPrimary', 'cardSecondary']);
+const RICH_FIELDS = new Set(['intro', 'cardPrimary', 'cardSecondary', 'cardTertiary']);
 const EMPTY_STAT = { value: '', label: '' };
 
 export default function AdminAbout() {

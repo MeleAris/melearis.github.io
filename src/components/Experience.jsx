@@ -28,7 +28,7 @@ function ProjectCard({ project }) {
                 borderRadius: "2rem",
                 fontSize: ".68rem",
                 background: "var(--accent)",
-                color: "#fff",
+                color: "var(--ink)",
                 fontWeight: 500,
                 whiteSpace: "nowrap",
               }}
@@ -106,7 +106,7 @@ export default function Experience() {
                 fontSize: ".7rem",
                 letterSpacing: ".15em",
                 textTransform: "uppercase",
-                color: "var(--accent)",
+                color: "var(--accent-ink)",
                 marginBottom: ".6rem",
               }}
             >

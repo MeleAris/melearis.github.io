@@ -10,7 +10,6 @@ import {
   setDoc,
 } from 'firebase/firestore';
 import { db } from '../lib/firebase';
-import { deleteUploadedImage } from './uploadService';
 
 const GALLERY_COLLECTION = collection(db, 'gallery');
 
@@ -117,6 +116,8 @@ export async function deleteGalleryItem(id) {
 
   // Les badges sont hébergés par l'émetteur : rien à supprimer côté Storage.
   if (fileUrl) {
+    // Import dynamique : Storage n'est embarqué que dans le chunk admin.
+    const { deleteUploadedImage } = await import('./uploadService');
     await deleteUploadedImage(fileUrl);
   }
 

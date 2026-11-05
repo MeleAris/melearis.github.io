@@ -287,6 +287,26 @@ export default function AdminContact() {
             placeholder={DEFAULT_CONTACT.title}
           />
         </label>
+        <label className="admin-form__field">
+          <span>Email affiché</span>
+          <input
+            type="email"
+            value={form.email ?? ''}
+            onChange={handleChange('email')}
+            disabled={!isAdmin || saving}
+            placeholder={DEFAULT_CONTACT.email}
+          />
+        </label>
+        <label className="admin-form__field">
+          <span>Disponibilité</span>
+          <input
+            type="text"
+            value={form.availability ?? ''}
+            onChange={handleChange('availability')}
+            disabled={!isAdmin || saving}
+            placeholder={DEFAULT_CONTACT.availability}
+          />
+        </label>
         <div className="admin-form__actions">
           <button
             type="submit"

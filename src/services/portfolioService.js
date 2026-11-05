@@ -7,12 +7,34 @@ import {
   orderBy,
   query,
   setDoc,
-  writeBatch,
 } from 'firebase/firestore';
-import { DEFAULT_WORKS } from '../constants/defaults/portfolio';
 import { db } from '../lib/firebase';
 
 const WORKS_COLLECTION = collection(db, 'works');
+
+function normalizeLinks(data) {
+  const rawLinks = Array.isArray(data?.links) ? data.links : [];
+  const links = rawLinks
+    .filter((link) => link && typeof link.url === 'string' && link.url.trim())
+    .map((link) => ({
+      label:
+        typeof link.label === 'string' && link.label.trim()
+          ? link.label.trim()
+          : 'Voir le projet',
+      url: link.url.trim(),
+    }));
+
+  // Rétrocompatibilité avec l'ancien champ `href`.
+  if (
+    links.length === 0 &&
+    typeof data?.href === 'string' &&
+    data.href.trim()
+  ) {
+    links.push({ label: 'Voir le projet', url: data.href.trim() });
+  }
+
+  return links;
+}
 
 function validateWork(data) {
   const images = Array.isArray(data?.images)
@@ -24,9 +46,11 @@ function validateWork(data) {
   return {
     title: typeof data?.title === 'string' ? data.title : '',
     category: typeof data?.category === 'string' ? data.category : '',
+    description:
+      typeof data?.description === 'string' ? data.description : '',
     color: typeof data?.color === 'string' ? data.color : '#d4c8b8',
-    href: typeof data?.href === 'string' ? data.href.trim() : '',
     images,
+    links: normalizeLinks(data),
     order: typeof data?.order === 'number' ? data.order : 0,
   };
 }
@@ -58,27 +82,4 @@ export async function saveWork(id, data) {
 
 export async function deleteWork(id) {
   await deleteDoc(doc(db, 'works', id));
-}
-
-export async function seedWorksFromLocal() {
-  const snap = await getDocs(WORKS_COLLECTION);
-  if (!snap.empty) {
-    return { seeded: false, count: snap.size };
-  }
-
-  const batch = writeBatch(db);
-  DEFAULT_WORKS.forEach((work, index) => {
-    const ref = doc(WORKS_COLLECTION);
-    batch.set(ref, {
-      title: work.title,
-      category: work.category,
-      color: work.color,
-      href: '',
-      images: [],
-      order: index,
-    });
-  });
-  await batch.commit();
-
-  return { seeded: true, count: DEFAULT_WORKS.length };
 }

@@ -1,6 +1,8 @@
 export const DEFAULT_CONTACT = {
   eyebrow: 'Je suis toujours enthousiaste à collaborer sur des projets innovants.',
-  title: 'Vous avez une idée? Faisons-la vivre!',
+  title: 'Vous avez une idée ? Faisons-la vivre !',
+  email: 'amelesusu@gmail.com',
+  availability: 'Ouvert aux missions — Lomé / remote',
 };
 
 export const DEFAULT_SOCIAL_LINKS = [

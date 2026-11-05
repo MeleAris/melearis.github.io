@@ -1,7 +1,7 @@
 export const experiences = [
   {
     company: 'ATOS MEDA TOGO',
-    period: 'Jan 2024 – Present',
+    period: 'Janv. 2024 – Aujourd\'hui',
     role: 'Développeur d\'applications',
     projects: [
       {
@@ -11,8 +11,8 @@ export const experiences = [
           'Déploiement du cluster Rancher',
           'Déploiement et configuration de Argocd',
           'Copie des images des services du quay Openshift vers le registry harbor',
-          'Edition des charts pour le déploiement des services',
-          'Edition des values de déploiement des services',
+          'Édition des charts pour le déploiement des services',
+          'Édition des values de déploiement des services',
           'Déploiement des applications sur rancher',
           'Exposition des services via virtualservers sur F5',
           'Monitoring des applications'
@@ -23,7 +23,7 @@ export const experiences = [
       },
       {
         title: 'Déploiement et configuration de WSO2',
-        description: 'Déploiement et configuration de WSO2 pour l\'exposition et la monétisation des APIs en remplacement à RedHat Fuse',
+        description: 'Déploiement et configuration de WSO2 pour l\'exposition et la monétisation des APIs en remplacement de Red Hat Fuse',
         tasks: [
           'Déploiement de WSO2 en Docker',
           'Administration et configuration des APIs à exposer',
@@ -35,7 +35,7 @@ export const experiences = [
         ]
       },
       {
-        title: 'Déploiement de MOSIP en env dev',
+        title: 'Déploiement de MOSIP en environnement de dev',
         description: 'Déploiement de MOSIP 1.1.5 en environnement de test',
         tasks: [
           'Configuration de l\'environnement ESXi',
@@ -53,7 +53,7 @@ export const experiences = [
         description: 'Administration de Jira Service Management pour la gestion des incidents et des demandes de service',
         tasks: [
           'Configuration des projets, des workflows et des automatisations',
-          'Configuration des champs personnalisées et des types de données',
+          'Configuration des champs personnalisés et des types de données',
           'Configuration des notifications et des rapports',
           'Gestion des utilisateurs et des groupes',
         ],
@@ -63,7 +63,7 @@ export const experiences = [
       },
       {
         title: 'Administration de Confluence',
-        description: 'Administration de Confluence pour la gestion des documents et des bases connaissances',
+        description: 'Administration de Confluence pour la gestion des documents et des bases de connaissances',
         tasks: [
           'Configuration des espaces de travail et des pages',
           'Rédaction des articles et des documents',
@@ -75,17 +75,17 @@ export const experiences = [
       },
     ],
     tags: [
-      '**Tech Lead'
+      'Tech Lead'
     ],
   },
   {
     company: 'CNTD — Centre National de Traitement de Données',
-    period: 'Dec 2023 – Mai 2024',
+    period: 'Déc. 2023 – Mai 2024',
     role: 'Développeur d\'applications',
     projects: [
       {
         title: 'Conception d\'une plateforme de saisie de données électorales',
-        description: 'Conception et développement d\'une plateforme de gestion des candidatures pour les élections de Avril 2024 — projet sensible à contraintes réglementaires fortes.',
+        description: 'Conception et développement d\'une plateforme de gestion des candidatures pour les élections d\'avril 2024 — projet sensible à contraintes réglementaires fortes.',
         tasks: [
           'Conception et développement du système d\'enregistrement des candidatures et des résultats électoraux',
           'Intégration d\'un module d\'analyse et de visualisation graphique des données',
@@ -98,7 +98,7 @@ export const experiences = [
   },
   {
     company: 'Give Smile Solutions',
-    period: 'Sep 2022 – Dec 2023',
+    period: 'Sept. 2022 – Déc. 2023',
     role: 'Développeur Web & Mobile',
     projects: [
       {
@@ -130,22 +130,16 @@ export const experiences = [
         ]
       },
     ],
-    tags: ['**Tech Lead'],
+    tags: ['Tech Lead'],
   },
-];
-
-export const works = [
-  { title: 'Halo Digital Agency', category: 'Branding', color: '#d4c8b8' },
-  { title: 'Halo Digital Agency', category: 'Branding', color: '#b8c4d4' },
-  { title: 'Halo Digital Agency', category: 'Branding', color: '#c4d4b8' },
 ];
 
 export const services = [
   {
     category: 'Dev',
-    title: 'Conception d\'application mobile',
+    title: 'Conception d\'applications mobiles',
     summary:
-      "Conception d'applications mobile intuitives et performantes.",
+      "Conception d'applications mobiles intuitives et performantes.",
     bullets: ['Applications intuitives', 'Notification In-App', 'Intégration de moyen de paiement'],
     stack: ['Flutter', 'Firebase', 'WhatsApp API', 'Stripe'],
     color: '#e8d5c4',
@@ -153,20 +147,20 @@ export const services = [
   },
   {
     category: 'Dev',
-    title: 'Developpement web',
+    title: 'Développement web',
     summary:
-      "Développement de applications web performantes et maintenables.",
-    bullets: ['Application responsive', 'Intégration de API tiers', 'Application e-commerce'],
+      "Développement d'applications web performantes et maintenables.",
+    bullets: ['Applications responsives', 'Intégration d\'API tierces', 'Applications e-commerce'],
     stack: ['React Js', 'Typescript', 'Tailwind'],
     color: '#e8c4c4',
     imageUrl: '/services/web.png?v=2',
   },
   {
     category: 'Dev',
-    title: 'Developpement backend',
+    title: 'Développement backend',
     summary:
       "Développement de services backend performants, testables et maintenables avec intégration de systèmes tiers.",
-    bullets: ['REST APIs', 'Integration SDK', 'Tests & qualite'],
+    bullets: ['REST APIs', 'Intégration SDK', 'Tests & qualité'],
     stack: ['Spring boot', 'Nest Js', 'PostgreSQL'],
     color: '#e8c4c4',
     imageUrl: '/services/backend.png?v=2',
@@ -175,7 +169,7 @@ export const services = [
     category: 'DevOps',
     title: 'Conteneurisation & Orchestration',
     summary:
-      "Mise en place d'environnements conteneurisés et orchestration Kubernetes.",
+      "Mise en place d'environnements conteneurisés et d'orchestration Kubernetes.",
     bullets: ['CI/CD', 'Déploiement multi-environnements', 'Observabilité'],
     stack: ['Docker', 'Kubernetes', 'Rancher', 'OpenShift', 'ArgoCD', 'Nexus', 'Gitlab', 'Harbor'],
     color: '#c4d4c4',
@@ -185,7 +179,7 @@ export const services = [
     category: 'Exploitation',
     title: 'Suivi & Support Production',
     summary:
-      "Exploitation d'applications en production, supervision proactive et traitement structure des incidents.",
+      "Exploitation d'applications en production, supervision proactive et traitement structuré des incidents.",
     bullets: ['Monitoring', 'Gestion des incidents', 'Documentation'],
     stack: ['Jira Service Management', 'Confluence', 'Grafana', 'ELK Stack', 'Prometheus'],
     color: '#b8c4d4',

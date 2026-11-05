@@ -241,7 +241,7 @@ export default function GalleryStrip() {
               fontSize: ".7rem",
               letterSpacing: ".15em",
               textTransform: "uppercase",
-              color: "var(--accent)",
+              color: "var(--accent-ink)",
               marginBottom: ".5rem",
               textAlign: "center",
             }}

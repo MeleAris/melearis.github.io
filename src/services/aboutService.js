@@ -17,7 +17,12 @@ const ABOUT_REF = doc(db, 'about', 'main');
 const STATS_COLLECTION = collection(db, 'aboutStats');
 
 const ABOUT_FIELDS = Object.keys(DEFAULT_ABOUT);
-const RICH_ABOUT_FIELDS = new Set(['intro', 'cardPrimary', 'cardSecondary']);
+const RICH_ABOUT_FIELDS = new Set([
+  'intro',
+  'cardPrimary',
+  'cardSecondary',
+  'cardTertiary',
+]);
 
 function validateAbout(data) {
   const result = {};

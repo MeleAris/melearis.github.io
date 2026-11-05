@@ -17,7 +17,7 @@ export default function Service() {
               fontSize: ".7rem",
               letterSpacing: ".15em",
               textTransform: "uppercase",
-              color: "var(--accent)",
+              color: "var(--accent-ink)",
               marginBottom: ".5rem",
               textAlign: "center",
             }}
@@ -46,8 +46,8 @@ export default function Service() {
             }}
           >
             De la conception à la production, j&apos;interviens sur les briques
-            clées d&apos;un produit digital : architecture, developpement,
-            deploiement, securite et exploitation.
+            clés d&apos;un produit digital : architecture, développement,
+            déploiement, sécurité et exploitation.
           </p>
         </FadeIn>
         <div

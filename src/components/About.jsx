@@ -27,7 +27,7 @@ export default function About() {
               fontSize: ".7rem",
               letterSpacing: ".15em",
               textTransform: "uppercase",
-              color: "var(--accent)",
+              color: "var(--accent-ink)",
               marginBottom: ".75rem",
             }}
           >
@@ -69,7 +69,7 @@ export default function About() {
                     fontFamily: "Playfair Display",
                     fontWeight: 700,
                     fontSize: "1.7rem",
-                    color: "var(--accent)",
+                    color: "var(--accent-ink)",
                   }}
                 >
                   {stat.value}
@@ -112,16 +112,22 @@ export default function About() {
               />
             </div>
             <div
+              className="about-card about-card--accent"
               style={{
                 padding: "1.5rem",
                 background: "var(--accent)",
                 borderRadius: "1.5rem",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
               }}
             >
-              <span style={{ fontSize: "2.5rem" }}>✦</span>
+              <RichText
+                html={about.cardTertiary}
+                className="rich-text--soft about-card__text"
+                style={{
+                  fontSize: ".82rem",
+                  color: "var(--ink)",
+                  lineHeight: 1.65,
+                }}
+              />
             </div>
             <div
               style={{

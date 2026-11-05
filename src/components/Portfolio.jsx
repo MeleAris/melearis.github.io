@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { usePortfolio } from "../hooks/usePortfolio";
 import FadeIn from "./FadeIn";
+import WorkModal from "./WorkModal";
 
 export default function Portfolio() {
   const { works } = usePortfolio();
   const [expanded, setExpanded] = useState(false);
+  const [activeWork, setActiveWork] = useState(null);
 
   if (works.length === 0) {
     return null;
@@ -22,7 +24,7 @@ export default function Portfolio() {
               fontSize: ".7rem",
               letterSpacing: ".15em",
               textTransform: "uppercase",
-              color: "var(--accent)",
+              color: "var(--accent-ink)",
               marginBottom: ".5rem",
               textAlign: "center",
             }}
@@ -51,7 +53,9 @@ export default function Portfolio() {
           }}
         >
           {visibleWorks.map((work, index) => (
-            <PortfolioCard key={work.id ?? work.title + index} work={work} index={index} />
+            <FadeIn key={work.id ?? work.title + index} delay={index * 0.12}>
+              <PortfolioCard work={work} onOpen={() => setActiveWork(work)} />
+            </FadeIn>
           ))}
         </div>
         {showMoreButton ? (
@@ -74,104 +78,47 @@ export default function Portfolio() {
           </div>
         ) : null}
       </div>
+
+      {activeWork ? (
+        <WorkModal work={activeWork} onClose={() => setActiveWork(null)} />
+      ) : null}
     </section>
   );
 }
 
-function PortfolioCard({ work, index }) {
-  const coverStyle =
-    work.images?.[0]
-      ? {
-          background: `${work.color} url(${work.images[0]}) center/cover no-repeat`,
-        }
-      : { background: work.color };
-
-  const inner = (
-    <>
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "linear-gradient(135deg,rgba(255,255,255,.3) 0%,transparent 50%)",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          top: 16,
-          right: 16,
-          background: "var(--ink)",
-          color: "#fff",
-          padding: ".3rem .75rem",
-          borderRadius: "2rem",
-          fontSize: ".7rem",
-        }}
-      >
-        {work.category}
-      </div>
-      {work.href ? (
-        <div
-          style={{
-            position: "absolute",
-            bottom: 16,
-            right: 16,
-            width: 36,
-            height: 36,
-            borderRadius: "50%",
-            background: "#fff",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          aria-hidden="true"
-        >
-          ↗
-        </div>
-      ) : null}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 16,
-          left: 16,
-          fontSize: ".78rem",
-          color: "rgba(0,0,0,.5)",
-        }}
-      >
-        {work.title}
-      </div>
-    </>
-  );
-
-  const sharedStyle = {
-    display: "block",
-    borderRadius: "1.5rem",
-    overflow: "hidden",
-    aspectRatio: "4/3",
-    position: "relative",
-    cursor: work.href ? "pointer" : "default",
-    textDecoration: "none",
-    color: "inherit",
-    ...coverStyle,
-  };
+function PortfolioCard({ work, onOpen }) {
+  const cover = work.images?.[0];
 
   return (
-    <FadeIn delay={index * 0.12}>
-      {work.href ? (
-        <a
-          href={work.href}
-          target="_blank"
-          rel="noreferrer"
-          style={sharedStyle}
-          aria-label={`${work.title} — ouvrir le projet`}
-        >
-          {inner}
-        </a>
-      ) : (
-        <div style={sharedStyle} aria-label={work.title}>
-          {inner}
-        </div>
-      )}
-    </FadeIn>
+    <button
+      type="button"
+      className="work-card"
+      onClick={onOpen}
+      aria-label={`${work.title} — voir les détails du projet`}
+    >
+      <span className="work-card__media">
+        {cover ? (
+          <img className="work-card__img" src={cover} alt="" loading="lazy" />
+        ) : (
+          <span
+            className="work-card__placeholder"
+            style={{ background: work.color }}
+          />
+        )}
+      </span>
+
+      <span className="work-card__shade" aria-hidden="true" />
+
+      {work.category ? (
+        <span className="work-card__badge">{work.category}</span>
+      ) : null}
+
+      <span className="work-card__footer">
+        <span className="work-card__title">{work.title}</span>
+        <span className="work-card__hint" aria-hidden="true">
+          Voir le projet ↗
+        </span>
+      </span>
+    </button>
   );
 }

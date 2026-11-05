@@ -1,10 +1,13 @@
 import {
   deleteObject,
   getDownloadURL,
+  getStorage,
   ref,
   uploadBytes,
 } from 'firebase/storage';
-import { storage } from '../lib/firebase';
+import { app } from '../lib/firebase';
+
+const storage = getStorage(app);
 
 const MAX_BYTES = 11 * 1024 * 1024;
 const UPLOAD_PREFIX = 'uploads/';

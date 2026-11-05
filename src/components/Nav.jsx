@@ -5,11 +5,11 @@ import { usePortfolio } from "../hooks/usePortfolio";
 import ContactButton from "./ContactButton";
 
 const NAV_LINKS = [
-  { label: "A propos" },
-  { label: "Certifications", requires: "certifications" },
-  { label: "Experience" },
-  { label: "Portfolio", requires: "works" },
-  { label: "Services" },
+  { label: "À propos", id: "a-propos" },
+  { label: "Certifications", id: "certifications", requires: "certifications" },
+  { label: "Expérience", id: "experience" },
+  { label: "Portfolio", id: "portfolio", requires: "works" },
+  { label: "Services", id: "services" },
 ];
 
 export default function Nav() {
@@ -25,7 +25,7 @@ export default function Nav() {
         (link) =>
           (link.requires !== "works" || hasWorks) &&
           (link.requires !== "certifications" || hasCertifications),
-      ).map((link) => link.label),
+      ),
     [hasWorks, hasCertifications],
   );
 
@@ -66,8 +66,9 @@ export default function Nav() {
       >
         <button
           type="button"
+          className="site-brand"
           onClick={() => {
-            const section = document.getElementById("acceuil");
+            const section = document.getElementById("accueil");
             if (section) {
               section.scrollIntoView({ behavior: "smooth" });
               section.setAttribute("tabindex", "-1");
@@ -77,22 +78,12 @@ export default function Nav() {
             }
             closeMenu();
           }}
-          style={{
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            padding: 0,
-            fontFamily: "Playfair Display",
-            fontWeight: 700,
-            fontSize: "1.25rem",
-            letterSpacing: "-.01em",
-            outline: "none",
-            color: "inherit",
-          }}
-          aria-label="Retour à l'accueil"
-          tabIndex={0}
+          aria-label={`Retour à l'accueil — ${profile.fullName}`}
         >
-          {profile.brandName}
+          <span className="site-brand__mono" aria-hidden="true">
+            {profile.brandName}
+          </span>
+          <span className="site-brand__name">{profile.fullName}</span>
         </button>
 
         <div
@@ -104,10 +95,10 @@ export default function Nav() {
             color: "var(--ink-soft)",
           }}
         >
-          {navLinks.map((label) => (
+          {navLinks.map((link) => (
             <a
-              key={label}
-              href={`#${label.toLowerCase().replace(" ", "-")}`}
+              key={link.id}
+              href={`#${link.id}`}
               style={{
                 textDecoration: "none",
                 color: "inherit",
@@ -120,7 +111,7 @@ export default function Nav() {
                 e.target.style.color = "var(--ink-soft)";
               }}
             >
-              {label}
+              {link.label}
             </a>
           ))}
         </div>
@@ -162,13 +153,9 @@ export default function Nav() {
 
       {menuOpen && (
         <div className="site-nav__mobile-menu">
-          {navLinks.map((label) => (
-            <a
-              key={label}
-              href={`#${label.toLowerCase().replace(" ", "-")}`}
-              onClick={closeMenu}
-            >
-              {label}
+          {navLinks.map((link) => (
+            <a key={link.id} href={`#${link.id}`} onClick={closeMenu}>
+              {link.label}
             </a>
           ))}
           <ContactButton

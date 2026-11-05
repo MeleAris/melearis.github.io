@@ -1,19 +1,21 @@
 import { useMemo } from "react";
 import IconMedia from "./IconMedia";
+import { useSiteProfileContext } from "../context/SiteProfileContext";
 import { useContact } from "../hooks/useContact";
 import { useGallery } from "../hooks/useGallery";
 import { usePortfolio } from "../hooks/usePortfolio";
 
 const FOOTER_LINKS = [
-  { label: "Acceuil" },
-  { label: "A propos" },
-  { label: "Certifications", requires: "certifications" },
-  { label: "Experience" },
-  { label: "Portfolio", requires: "works" },
-  { label: "Services" },
+  { label: "Accueil", id: "accueil" },
+  { label: "À propos", id: "a-propos" },
+  { label: "Certifications", id: "certifications", requires: "certifications" },
+  { label: "Expérience", id: "experience" },
+  { label: "Portfolio", id: "portfolio", requires: "works" },
+  { label: "Services", id: "services" },
 ];
 
 export default function Footer() {
+  const { profile } = useSiteProfileContext();
   const { socialLinks } = useContact();
   const { hasWorks } = usePortfolio();
   const { hasCertifications } = useGallery();
@@ -24,7 +26,7 @@ export default function Footer() {
         (link) =>
           (link.requires !== "works" || hasWorks) &&
           (link.requires !== "certifications" || hasCertifications),
-      ).map((link) => link.label),
+      ),
     [hasWorks, hasCertifications],
   );
 
@@ -54,13 +56,13 @@ export default function Footer() {
             color: "rgba(255,255,255,.5)",
           }}
         >
-          {footerLinks.map((label) => (
+          {footerLinks.map((link) => (
             <a
-              key={label}
-              href={`#${label.toLowerCase().replace(" ", "-")}`}
+              key={link.id}
+              href={`#${link.id}`}
               style={{ color: "inherit", textDecoration: "none" }}
             >
-              {label}
+              {link.label}
             </a>
           ))}
         </div>
@@ -112,6 +114,10 @@ export default function Footer() {
           ))}
         </div>
       </div>
+
+      <p className="footer-copy">
+        © {new Date().getFullYear()} {profile.fullName || "Aristide Melesusu"}
+      </p>
     </footer>
   );
 }

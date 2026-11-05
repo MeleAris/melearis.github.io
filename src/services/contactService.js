@@ -23,6 +23,11 @@ function validateContact(data) {
   return {
     eyebrow: typeof data?.eyebrow === 'string' ? data.eyebrow : DEFAULT_CONTACT.eyebrow,
     title: typeof data?.title === 'string' ? data.title : DEFAULT_CONTACT.title,
+    email: typeof data?.email === 'string' ? data.email : DEFAULT_CONTACT.email,
+    availability:
+      typeof data?.availability === 'string'
+        ? data.availability
+        : DEFAULT_CONTACT.availability,
   };
 }
 

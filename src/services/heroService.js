@@ -16,6 +16,11 @@ function validateHero(data) {
         ? data.scrollLabel
         : DEFAULT_HERO.scrollLabel,
     portraitUrl,
+    tagline:
+      typeof data?.tagline === 'string' && data.tagline.trim()
+        ? data.tagline.trim()
+        : DEFAULT_HERO.tagline,
+    cvUrl: typeof data?.cvUrl === 'string' ? data.cvUrl.trim() : '',
   };
 }
 

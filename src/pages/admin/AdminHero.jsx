@@ -92,8 +92,8 @@ export default function AdminHero() {
     <div className="admin-page">
       <h1 className="admin-page__title">Hero</h1>
       <p className="admin-page__lead">
-        Photo portrait à droite du Hello, et libellé du bouton de défilement. L&apos;eyebrow
-        (nom, titre) reste géré dans Profil / site.
+        Photo portrait, phrase d&apos;accroche et lien du CV affichés sur la page
+        d&apos;accueil. L&apos;eyebrow (nom, titre) reste géré dans Profil / site.
       </p>
 
       {!isAdmin ? (
@@ -116,6 +116,32 @@ export default function AdminHero() {
         <p className="admin-form__hint">
           PNG ou JPG, idéalement 1200×1600 (ratio 3:4), fond blanc / clair, cadrage
           buste. Max 11 Mo.
+        </p>
+
+        <label className="admin-form__field">
+          <span>Phrase d&apos;accroche (sous le « Hello »)</span>
+          <textarea
+            rows={3}
+            value={form.tagline ?? ''}
+            onChange={handleChange('tagline')}
+            disabled={!isAdmin || saving}
+            placeholder={DEFAULT_HERO.tagline}
+          />
+        </label>
+
+        <label className="admin-form__field">
+          <span>Lien du CV (PDF)</span>
+          <input
+            type="url"
+            value={form.cvUrl ?? ''}
+            onChange={handleChange('cvUrl')}
+            disabled={!isAdmin || saving}
+            placeholder="https://drive.google.com/file/d/…/view"
+          />
+        </label>
+        <p className="admin-form__hint">
+          Le bouton « Télécharger le CV » n&apos;apparaît que si ce lien est renseigné.
+          Pour Google Drive, préférez un lien de partage public.
         </p>
 
         <label className="admin-form__field">

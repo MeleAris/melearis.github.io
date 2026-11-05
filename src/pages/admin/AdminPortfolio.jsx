@@ -1,25 +1,96 @@
 import { useCallback, useEffect, useState } from 'react';
 import AdminModal from '../../components/admin/AdminModal';
 import ImageUploadField from '../../components/admin/ImageUploadField';
-import { DEFAULT_WORKS } from '../../constants/defaults/portfolio';
 import { useAuth } from '../../context/AuthContext';
 import {
   createWork,
   deleteWork,
   listWorks,
   saveWork,
-  seedWorksFromLocal,
 } from '../../services/portfolioService';
 
 const EMPTY_WORK = {
   title: '',
   category: '',
+  description: '',
   color: '#d4c8b8',
-  href: '',
   images: [],
+  links: [],
 };
 
-function WorkForm({ work, onChange, onAddImage, onRemoveImage, disabled }) {
+function LinkEditor({ links, onChange, disabled }) {
+  const list = links ?? [];
+
+  function updateLink(index, field, value) {
+    onChange(
+      list.map((link, linkIndex) =>
+        linkIndex === index ? { ...link, [field]: value } : link,
+      ),
+    );
+  }
+
+  return (
+    <div className="admin-links">
+      <span className="admin-links__label">Liens du projet</span>
+      {list.length > 0 ? (
+        <ul className="admin-links__list">
+          {list.map((link, index) => (
+            <li key={index} className="admin-links__row">
+              <input
+                type="text"
+                value={link.label ?? ''}
+                onChange={(event) => updateLink(index, 'label', event.target.value)}
+                placeholder="Titre du lien (ex. Code source)"
+                disabled={disabled}
+                aria-label={`Titre du lien ${index + 1}`}
+              />
+              <input
+                type="url"
+                value={link.url ?? ''}
+                onChange={(event) => updateLink(index, 'url', event.target.value)}
+                placeholder="https://"
+                disabled={disabled}
+                aria-label={`URL du lien ${index + 1}`}
+              />
+              <button
+                type="button"
+                className="admin-btn admin-btn--ghost"
+                onClick={() => onChange(list.filter((_, linkIndex) => linkIndex !== index))}
+                disabled={disabled}
+                aria-label={`Retirer le lien ${index + 1}`}
+              >
+                ✕
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="admin-form__hint">Aucun lien. Ajoutez-en un ou plusieurs ci-dessous.</p>
+      )}
+      <button
+        type="button"
+        className="admin-btn admin-btn--outline"
+        onClick={() => onChange([...list, { label: '', url: '' }])}
+        disabled={disabled}
+      >
+        Ajouter un lien
+      </button>
+      <p className="admin-form__hint">
+        Les titres renseignés s&apos;affichent dans le détail du projet. Les liens sans URL
+        sont ignorés.
+      </p>
+    </div>
+  );
+}
+
+function WorkForm({
+  work,
+  onChange,
+  onAddImage,
+  onRemoveImage,
+  onSetCover,
+  disabled,
+}) {
   return (
     <>
       <label className="admin-form__field">
@@ -29,7 +100,7 @@ function WorkForm({ work, onChange, onAddImage, onRemoveImage, disabled }) {
           value={work.title}
           onChange={(event) => onChange('title', event.target.value)}
           disabled={disabled}
-          placeholder={DEFAULT_WORKS[0]?.title}
+          placeholder="Nom du projet"
         />
       </label>
       <label className="admin-form__field">
@@ -39,11 +110,21 @@ function WorkForm({ work, onChange, onAddImage, onRemoveImage, disabled }) {
           value={work.category}
           onChange={(event) => onChange('category', event.target.value)}
           disabled={disabled}
-          placeholder={DEFAULT_WORKS[0]?.category}
+          placeholder="Ex. Application mobile"
         />
       </label>
       <label className="admin-form__field">
-        <span>Couleur de secours</span>
+        <span>Description</span>
+        <textarea
+          rows={4}
+          value={work.description ?? ''}
+          onChange={(event) => onChange('description', event.target.value)}
+          disabled={disabled}
+          placeholder="Contexte, rôle, technologies, résultats…"
+        />
+      </label>
+      <label className="admin-form__field">
+        <span>Couleur de secours (sans image)</span>
         <input
           type="text"
           value={work.color}
@@ -52,38 +133,54 @@ function WorkForm({ work, onChange, onAddImage, onRemoveImage, disabled }) {
           placeholder="#d4c8b8"
         />
       </label>
-      <label className="admin-form__field">
-        <span>Lien projet</span>
-        <input
-          type="url"
-          value={work.href ?? ''}
-          onChange={(event) => onChange('href', event.target.value)}
+
+      <div className="admin-work-images">
+        <span className="admin-links__label">Images du projet</span>
+        {(work.images ?? []).length > 0 ? (
+          <ul className="admin-image-list">
+            {(work.images ?? []).map((url, imageIndex) => (
+              <li key={`${url}-${imageIndex}`} className="admin-image-list__item">
+                <img src={url} alt="" />
+                {imageIndex === 0 ? (
+                  <span className="admin-image-list__cover">Couverture</span>
+                ) : (
+                  <button
+                    type="button"
+                    className="admin-btn admin-btn--ghost"
+                    disabled={disabled}
+                    onClick={() => onSetCover(imageIndex)}
+                  >
+                    Mettre en couverture
+                  </button>
+                )}
+                <button
+                  type="button"
+                  className="admin-btn admin-btn--ghost"
+                  disabled={disabled}
+                  onClick={() => onRemoveImage(imageIndex)}
+                >
+                  Retirer
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+        <ImageUploadField
+          label="Ajouter une image"
+          value=""
+          onChange={onAddImage}
+          folder="portfolio"
           disabled={disabled}
-          placeholder="https://"
         />
-      </label>
-      {(work.images ?? []).length > 0 ? (
-        <ul className="admin-image-list">
-          {(work.images ?? []).map((url, imageIndex) => (
-            <li key={`${url}-${imageIndex}`} className="admin-image-list__item">
-              <img src={url} alt="" />
-              <button
-                type="button"
-                className="admin-btn admin-btn--ghost"
-                disabled={disabled}
-                onClick={() => onRemoveImage(imageIndex)}
-              >
-                Retirer
-              </button>
-            </li>
-          ))}
-        </ul>
-      ) : null}
-      <ImageUploadField
-        label="Ajouter une image"
-        value=""
-        onChange={onAddImage}
-        folder="portfolio"
+        <p className="admin-form__hint">
+          La première image sert de couverture ; toutes les images défilent dans le détail du
+          projet.
+        </p>
+      </div>
+
+      <LinkEditor
+        links={work.links ?? []}
+        onChange={(links) => onChange('links', links)}
         disabled={disabled}
       />
     </>
@@ -120,7 +217,13 @@ export default function AdminPortfolio() {
   useEffect(() => {
     if (!detailId) return;
     const fresh = works.find((work) => work.id === detailId);
-    if (fresh) setDetailDraft({ ...fresh, images: [...(fresh.images ?? [])] });
+    if (fresh) {
+      setDetailDraft({
+        ...fresh,
+        images: [...(fresh.images ?? [])],
+        links: (fresh.links ?? []).map((link) => ({ ...link })),
+      });
+    }
   }, [works, detailId]);
 
   async function runAction(action) {
@@ -137,26 +240,13 @@ export default function AdminPortfolio() {
     }
   }
 
-  async function handleSeed() {
-    await runAction(async () => {
-      const result = await seedWorksFromLocal();
-      if (result.seeded) {
-        setMessage({
-          type: 'success',
-          text: `${result.count} réalisations importées (sans images ni liens).`,
-        });
-      } else {
-        setMessage({
-          type: 'success',
-          text: 'La collection contient déjà des réalisations — import ignoré.',
-        });
-      }
-    });
-  }
-
   function openDetail(work) {
     setDetailId(work.id);
-    setDetailDraft({ ...work, images: [...(work.images ?? [])] });
+    setDetailDraft({
+      ...work,
+      images: [...(work.images ?? [])],
+      links: (work.links ?? []).map((link) => ({ ...link })),
+    });
     setMessage(null);
   }
 
@@ -173,9 +263,10 @@ export default function AdminPortfolio() {
       const created = await createWork({
         title: createDraft.title.trim(),
         category: createDraft.category.trim(),
+        description: createDraft.description ?? '',
         color: createDraft.color,
-        href: createDraft.href.trim(),
         images: createDraft.images,
+        links: createDraft.links,
         order: works.length,
       });
       setCreateOpen(false);
@@ -261,20 +352,12 @@ export default function AdminPortfolio() {
           >
             Ajouter une réalisation
           </button>
-          <button
-            type="button"
-            className="admin-btn admin-btn--outline"
-            disabled={!isAdmin || busy}
-            onClick={handleSeed}
-          >
-            Importer
-          </button>
         </div>
       </div>
 
       {works.length === 0 ? (
         <p className="admin-page__lead">
-          Aucune réalisation en Firestore. Importez la liste locale ou ajoutez une réalisation.
+          Aucune réalisation pour le moment. Ajoutez votre première réalisation.
         </p>
       ) : (
         <div className="admin-summary-grid">
@@ -333,6 +416,12 @@ export default function AdminPortfolio() {
                 images: prev.images.filter((_, index) => index !== imageIndex),
               }));
             }}
+            onSetCover={(imageIndex) => {
+              setCreateDraft((prev) => ({
+                ...prev,
+                images: moveToCover(prev.images, imageIndex),
+              }));
+            }}
             disabled={!isAdmin || busy}
           />
           <div className="admin-form__actions">
@@ -379,6 +468,11 @@ export default function AdminPortfolio() {
                         images: (prev.images ?? []).filter((_, index) => index !== imageIndex),
                       }
                     : prev,
+                );
+              }}
+              onSetCover={(imageIndex) => {
+                setDetailDraft((prev) =>
+                  prev ? { ...prev, images: moveToCover(prev.images, imageIndex) } : prev,
                 );
               }}
               disabled={!isAdmin || busy}
@@ -435,4 +529,11 @@ export default function AdminPortfolio() {
       ) : null}
     </div>
   );
+}
+
+function moveToCover(images, imageIndex) {
+  const list = [...(images ?? [])];
+  const [picked] = list.splice(imageIndex, 1);
+  if (!picked) return list;
+  return [picked, ...list];
 }
